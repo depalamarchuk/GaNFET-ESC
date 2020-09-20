@@ -1,0 +1,87 @@
+18:25:43 **** Incremental Build of configuration Debug for project ESC_firmware ****
+make -j8 all 
+arm-none-eabi-gcc "../UART/src/UART.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32G473CETx -DSTM32G4 -DDEBUG -c -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/Startup" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"UART/src/UART.d" -MT"UART/src/UART.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "UART/src/UART.o"
+arm-none-eabi-gcc "../Main/scr/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32G473CETx -DSTM32G4 -DDEBUG -c -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/Startup" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Main/scr/main.d" -MT"Main/scr/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Main/scr/main.o"
+arm-none-eabi-gcc "../Main/scr/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32G473CETx -DSTM32G4 -DDEBUG -c -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/Startup" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Main/scr/syscalls.d" -MT"Main/scr/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Main/scr/syscalls.o"
+arm-none-eabi-gcc "../Main/scr/sysinit.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32G473CETx -DSTM32G4 -DDEBUG -c -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/Startup" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Main/scr/sysinit.d" -MT"Main/scr/sysinit.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Main/scr/sysinit.o"
+arm-none-eabi-gcc "../Main/scr/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32G473CETx -DSTM32G4 -DDEBUG -c -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/Startup" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Main/scr/sysmem.d" -MT"Main/scr/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Main/scr/sysmem.o"
+arm-none-eabi-gcc "../LED/src/LED.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32G473CETx -DSTM32G4 -DDEBUG -c -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/Startup" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"LED/src/LED.d" -MT"LED/src/LED.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "LED/src/LED.o"
+arm-none-eabi-gcc "../CMSIS/src/system_stm32g4xx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32G473CETx -DSTM32G4 -DDEBUG -c -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/CMSIS/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/LED" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/UART/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/inc" -I"C:/Users/Admin/Desktop/ESC_code/ESC_firmware/Main/Startup" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"CMSIS/src/system_stm32g4xx.d" -MT"CMSIS/src/system_stm32g4xx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "CMSIS/src/system_stm32g4xx.o"
+../LED/src/LED.c: In function 'BlinkLED':
+../LED/src/LED.c:158:2: warning: implicit declaration of function 'delay' [-Wimplicit-function-declaration]
+  delay(period/2);
+  ^~~~~
+../LED/src/LED.c: In function 'ShiftLEDLeft':
+../LED/src/LED.c:181:13: warning: statement with no effect [-Wunused-value]
+  TEMP_COLOR << 1;
+  ~~~~~~~~~~~^~~~
+../Main/scr/main.c:26:4: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+    ^~~~~~~
+../Main/scr/sysinit.c: In function 'InitRCC':
+../Main/scr/sysinit.c:12:19: error: 'FLASH_ACR_PRFTBE' undeclared (first use in this function); did you mean 'FLASH_ACR_PRFTEN'?
+  FLASH -> ACR  |= FLASH_ACR_PRFTBE;
+                   ^~~~~~~~~~~~~~~~
+                   FLASH_ACR_PRFTEN
+../Main/scr/sysinit.c:12:19: note: each undeclared identifier is reported only once for each function it appears in
+../Main/scr/sysinit.c:13:19: error: 'FLASH_ACR_LATENCY_2' undeclared (first use in this function); did you mean 'FLASH_ACR_LATENCY_2WS'?
+  FLASH -> ACR  |= FLASH_ACR_LATENCY_2;       // Clock Flash memory
+                   ^~~~~~~~~~~~~~~~~~~
+                   FLASH_ACR_LATENCY_2WS
+../Main/scr/sysinit.c:19:20: error: 'RCC_CFGR_PLLMUL' undeclared (first use in this function); did you mean 'RCC_CR_PLLON'?
+  RCC  -> CFGR  &= ~RCC_CFGR_PLLMUL;                   // clear PLLMUL bits
+                    ^~~~~~~~~~~~~~~
+                    RCC_CR_PLLON
+../Main/scr/sysinit.c:20:20: error: 'RCC_CFGR_PLLXTPRE' undeclared (first use in this function); did you mean 'RCC_CFGR_PLLMUL'?
+  RCC  -> CFGR  &= ~RCC_CFGR_PLLXTPRE;       // clear PLLXTPRE bits
+                    ^~~~~~~~~~~~~~~~~
+                    RCC_CFGR_PLLMUL
+../Main/scr/sysinit.c:21:20: error: 'RCC_CFGR_PLLSRC' undeclared (first use in this function); did you mean 'RCC_CFGR_PLLMUL'?
+  RCC  -> CFGR  &= ~RCC_CFGR_PLLSRC;       // clear PLLSRC bits
+                    ^~~~~~~~~~~~~~~
+                    RCC_CFGR_PLLMUL
+../Main/scr/sysinit.c:23:19: error: 'RCC_CFGR_PLLSRC_HSE_PREDIV' undeclared (first use in this function); did you mean 'RCC_PLLCFGR_PLLSRC_HSE_Pos'?
+  RCC  -> CFGR  |= RCC_CFGR_PLLSRC_HSE_PREDIV;      // source HSE
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+                   RCC_PLLCFGR_PLLSRC_HSE_Pos
+../Main/scr/sysinit.c:24:19: error: 'RCC_CFGR_PLLXTPRE_HSE_PREDIV_DIV1' undeclared (first use in this function); did you mean 'RCC_CFGR_PLLSRC_HSE_PREDIV'?
+  RCC  -> CFGR  |= RCC_CFGR_PLLXTPRE_HSE_PREDIV_DIV1;    // source HSE/1 = 8 MHz
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                   RCC_CFGR_PLLSRC_HSE_PREDIV
+../Main/scr/sysinit.c:25:19: error: 'RCC_CFGR_PLLMUL9' undeclared (first use in this function); did you mean 'RCC_CFGR_PLLMUL'?
+  RCC  -> CFGR  |= RCC_CFGR_PLLMUL9;        // PLL x9: clock = 8 MHz * 9 = 72 MHz
+                   ^~~~~~~~~~~~~~~~
+                   RCC_CFGR_PLLMUL
+../Main/scr/sysinit.c: In function 'GenMCO':
+../Main/scr/sysinit.c:38:10: error: 'RCC_TypeDef {aka struct <anonymous>}' has no member named 'AHBENR'; did you mean 'AHB1ENR'?
+  RCC  -> AHBENR |= RCC_AHBENR_GPIOAEN;                        // enable clock for port A
+          ^~~~~~
+          AHB1ENR
+../Main/scr/sysinit.c:38:20: error: 'RCC_AHBENR_GPIOAEN' undeclared (first use in this function); did you mean 'RCC_AHB2ENR_GPIOAEN'?
+  RCC  -> AHBENR |= RCC_AHBENR_GPIOAEN;                        // enable clock for port A
+                    ^~~~~~~~~~~~~~~~~~
+                    RCC_AHB2ENR_GPIOAEN
+../Main/scr/sysinit.c:44:18: error: 'RCC_CFGR_MCO_SYSCLK' undeclared (first use in this function); did you mean 'RCC_CFGR_MCOSEL'?
+  RCC  -> CFGR |= RCC_CFGR_MCO_SYSCLK;        // select source clokc SYSCLK
+                  ^~~~~~~~~~~~~~~~~~~
+                  RCC_CFGR_MCOSEL
+../Main/scr/sysinit.c: In function 'InitGPIO':
+../Main/scr/sysinit.c:51:10: error: 'RCC_TypeDef {aka struct <anonymous>}' has no member named 'AHBENR'; did you mean 'AHB1ENR'?
+  RCC  -> AHBENR |= RCC_AHBENR_GPIOBEN;       // Enable clock port B
+          ^~~~~~
+          AHB1ENR
+../Main/scr/sysinit.c:51:20: error: 'RCC_AHBENR_GPIOBEN' undeclared (first use in this function); did you mean 'RCC_AHB2ENR_GPIOBEN'?
+  RCC  -> AHBENR |= RCC_AHBENR_GPIOBEN;       // Enable clock port B
+                    ^~~~~~~~~~~~~~~~~~
+                    RCC_AHB2ENR_GPIOBEN
+../Main/scr/sysinit.c:52:10: error: 'RCC_TypeDef {aka struct <anonymous>}' has no member named 'AHBENR'; did you mean 'AHB1ENR'?
+  RCC  -> AHBENR |= RCC_AHBENR_GPIOCEN;       // Enable clock port C
+          ^~~~~~
+          AHB1ENR
+../Main/scr/sysinit.c:52:20: error: 'RCC_AHBENR_GPIOCEN' undeclared (first use in this function); did you mean 'RCC_AHBENR_GPIOBEN'?
+  RCC  -> AHBENR |= RCC_AHBENR_GPIOCEN;       // Enable clock port C
+                    ^~~~~~~~~~~~~~~~~~
+                    RCC_AHBENR_GPIOBEN
+make: *** [Main/scr/subdir.mk:31: Main/scr/sysinit.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j8 all" terminated with exit code 2. Build might be incomplete.

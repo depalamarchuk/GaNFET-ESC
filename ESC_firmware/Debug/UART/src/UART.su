@@ -1,0 +1,4 @@
+UART.c:7:6:InitUSART1	4	static
+UART.c:45:6:SendUSART1	16	static
+UART.c:52:6:SendStringUSART1	24	static
+UART.c:59:6:SendDataUSART1	16	static

@@ -1,0 +1,8 @@
+"CMSIS/src/system_stm32g4xx.o"
+"LED/src/LED.o"
+"Main/Startup/startup_stm32g473cetx.o"
+"Main/scr/main.o"
+"Main/scr/syscalls.o"
+"Main/scr/sysinit.o"
+"Main/scr/sysmem.o"
+"UART/src/UART.o"
