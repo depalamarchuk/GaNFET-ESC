@@ -31,14 +31,14 @@ void InitUSART1 (void){
 
 	GPIOB	-> AFR[0]	|= 0x07 << (4*7);
 
-	USART1	-> BRR		= 0xEA6; //Based on sysclk, not APB1 clk // recalculate
+	USART1	-> BRR		= 0x445C; //(fck + baudrate /2 ) / baudrate
 
 	USART1	-> CR1		|= USART_CR1_TE;
 	USART1	-> CR1		|= USART_CR1_RE;
 	USART1	-> CR1 		|= USART_CR1_UE;
 
 	USART1	-> CR1		|= USART_CR1_RXNEIE;
-	//NVIC_EnableIRQ(USART1_IRQn);
+	NVIC_EnableIRQ(USART1_IRQn);
 }
 
 
@@ -53,7 +53,9 @@ void SendStringUSART1 (char* str){
 	uint8_t i = 0;
 
 	while(str[i])
-	SendUSART1 (str[i++]);
+	{
+		SendUSART1 (str[i++]);
+	}
 }
 
 void SendDataUSART1 (uint8_t data){
@@ -63,3 +65,9 @@ void SendDataUSART1 (uint8_t data){
 	USART1	->TDR 		= data;
 }
 
+void USART1_IRQHandler (void){
+	if (USART1->ISR & USART_CR1_RXNEIE)
+	{
+		USART1	-> ISR &= ~USART_CR1_RXNEIE;
+	}
+}

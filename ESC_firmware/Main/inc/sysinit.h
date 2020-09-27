@@ -2,8 +2,11 @@
 
 #include "stm32g4xx.h"
 
+#define FREQ	168000000
+#define ONE_US	168
+#define ONE_MS	168000
+#define ONE_S	168000000
+
 /********************************************* Used functions ********************************************/
 
 void InitRCC (void);
-void InitGPIO (void);
-void GenMCO (void);

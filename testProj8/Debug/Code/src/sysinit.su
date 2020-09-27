@@ -1,0 +1,3 @@
+sysinit.c:7:6:InitRCC	4	static
+sysinit.c:40:6:GenMCO	4	static
+sysinit.c:52:6:InitGPIO	4	static
