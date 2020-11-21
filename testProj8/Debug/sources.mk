@@ -21,7 +21,5 @@ OBJCOPY_BIN :=
 SUBDIRS := \
 CMSIS/src \
 Code/src \
-FreeRTOS_Source/portable/GCC/ARM_CM4F \
-FreeRTOS_Source/portable/MemMang \
 Startup \
 

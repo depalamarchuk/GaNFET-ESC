@@ -12,11 +12,6 @@ int main(void)
 	InitUSART();
 	InitPWM();
 
-	xTaskCreate(vTaskButtonUser, "Button", 32, 0, 1, 0);
-	xTaskCreate(vTaskPWMGen, "PWM", 32, 0, 1, 0);
-
-	vTaskStartScheduler();
-
 	while(1)
 	{
 
@@ -24,69 +19,35 @@ int main(void)
 
 }
 
-/************************************************ Used FreeRTOS tasks ************************************************/
 
-void vTaskPWMGen (void *argument){
-	static uint16_t i;
+static uint16_t CalculateOCReg(uint8_t throttle)
+{
+	uint16_t OCReg;
 
-	uint8_t sw = 0;
+	OCReg = throttle*10 + 1000;
 
-	while (1)
-	{
-		TIM2	-> CCR2		= i;
-
-		if (sw == 0){
-			i++;
-		}
-		else
-		{
-			i--;
-		}
-
-		if (i == 1000){
-			sw = 1;
-		}
-		else if (i == 0 || i > 1000)
-		{
-			i = 0;
-			sw = 0;
-		}
-
-		vTaskDelay(5);
-	}
-}
-
-void vTaskButtonUser (void *argument){
-
-	while (1)
-	{
-		if ((GPIOC -> IDR & GPIO_IDR_13) == 0){
-			vTaskDelay(100);
-			GPIOB	-> ODR ^= GPIO_ODR_0;
-			SendStringUSART2 ("Button\r\n");
-		}
-
-		vTaskDelay(200);
-	}
+	return OCReg;
 }
 
 /***************************************************** Interrupt *****************************************************/
 
 void USART2_IRQHandler (void){
+	static uint16_t DutyCycle;
+
 	if (USART2->ISR & USART_CR1_RXNEIE){
 
 		USART2	-> ISR &= ~USART_CR1_RXNEIE;
 
-		if (USART2 -> RDR == '0'){
-			SendStringUSART2 ("OFF\r\n");
-			GPIOB	-> BSRR |= GPIO_BSRR_BR_13;
+		if (((USART2 -> RDR) >= 0) && ((USART2 -> RDR) <= 100))
+		{
+			DutyCycle = CalculateOCReg(USART2 -> RDR);
+			TIM2	-> CCR2		= DutyCycle;
+			SendStringUSART2("OK.\r\n");
 		}
-
-		if (USART2 -> RDR == '1'){
-			SendStringUSART2 ("ON\r\n");
-			GPIOB	-> BSRR |= GPIO_BSRR_BS_13;
+		else
+		{
+			SendStringUSART2("Incorrect duty cycle.\r\n");
 		}
-
 	}
 
 }

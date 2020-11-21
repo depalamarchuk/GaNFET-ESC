@@ -7,8 +7,6 @@
 void InitRCC (void){
 	uint8_t ticks = 0;													//(1us = 168 ticks @ 168MHz)
 
-	RCC		-> CFGR			|= RCC_CFGR_HPRE_DIV2;						// AHB divided by 2 before changing clock
-
 	PWR		-> CR1			|= PWR_CR1_VOS_0;							// Ensure range 1
 	PWR		-> CR5			&= ~PWR_CR5_R1MODE;							// Range 1 from normal to boost mode
 
@@ -19,6 +17,10 @@ void InitRCC (void){
 
 	FLASH	-> ACR			|= FLASH_ACR_PRFTEN;
 	FLASH	-> ACR			|= FLASH_ACR_LATENCY_4WS;					// See table 9
+
+	RCC		-> CFGR			|= RCC_CFGR_HPRE_DIV1;						// AHB = SYSCLK/1
+	RCC		-> CFGR			|= RCC_CFGR_PPRE1_DIV1;						// APB1 = HCLK/1
+	RCC		-> CFGR			|= RCC_CFGR_PPRE2_DIV1;						// APB2 = HCLK/1
 
 	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLPEN;						// clear PLLPEN bits
 	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLP;						// clear PLLP bits
@@ -37,21 +39,20 @@ void InitRCC (void){
 	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLR; 						// PLLR = PLLN/2 = 168 MHz
 	RCC		-> PLLCFGR		|= RCC_PLLCFGR_PLLREN;
 
-	RCC		-> PLLCFGR		|= RCC_PLLCFGR_PLLSRC; 						// PLLQ = PLLN/8 = 42 MHz (for FD CAN)
+	RCC		-> PLLCFGR		|= RCC_PLLCFGR_PLLSRC; 						//HSE clock selected as PLL clock entry
+
+	RCC		-> PLLCFGR		|= 0x8UL << RCC_PLLCFGR_PLLQ_Pos;			// PLLQ = PLLN/8 = 42 MHz (for FD CAN)
 	RCC		-> PLLCFGR		|= RCC_PLLCFGR_PLLQEN;
 
-	/*
-	 * PLLP is not used now, but probably will be used for ADC
-	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLP;
-	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLPEN;
-	*/
+	RCC		-> PLLCFGR		|= 0x8UL << RCC_PLLCFGR_PLLPDIV_Pos;		// PLLP = PLLN/6 = 56 MHz (for ADC)
+	RCC		-> PLLCFGR		|= RCC_PLLCFGR_PLLPEN;
 
 	RCC		-> CR			|= RCC_CR_PLLON;                      		// enable PLL
 	while((RCC->CR & RCC_CR_PLLRDY) == 0) {}     						// wait till PLL is ready
 
 	RCC		-> CFGR			&= ~RCC_CFGR_SW;                   			// clear SW bits
 	RCC		-> CFGR			|= RCC_CFGR_SW_PLL;               			// select source SYSCLK = PLL
-	while((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_1) {} 				// wait till PLL is used
+	while((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS) {} 				// wait till PLL is used
 
 	//waiting for at least 1us
 	while (!(ticks = 200))
@@ -61,11 +62,47 @@ void InitRCC (void){
 
 	ticks = 0;
 
-	RCC		-> CFGR			|= RCC_CFGR_HPRE_DIV1;						// AHB = SYSCLK/1
-	RCC		-> CFGR			|= RCC_CFGR_PPRE1_DIV1;						// APB1 = HCLK/1
-	RCC		-> CFGR			|= RCC_CFGR_PPRE2_DIV1;						// APB2 = HCLK/1
-
 }
+
+void flashUnlock (void){
+	FLASH -> KEYR = INT_FLASH_KEY1;
+	FLASH -> KEYR = INT_FLASH_KEY2;
+}
+
+void flashLock (void){
+	FLASH -> CR |= FLASH_CR_LOCK;
+}
+
+void flashAllErase (void){
+	FLASH -> CR |= FLASH_CR_MER1;
+	FLASH -> CR |= FLASH_CR_STRT;
+}
+
+uint32_t flashReadData (uint32_t address){
+
+	return (*(__IO uint32_t*) address);
+}
+
+void flashWriteData (uint32_t address, uint32_t data){
+
+	FLASH -> CR |= FLASH_CR_PG;
+
+	while((FLASH -> SR & FLASH_SR_BSY)!=0);
+
+	*(__IO uint16_t*)address = (uint16_t)data;
+
+	while((FLASH -> SR & FLASH_SR_BSY)!=0);
+
+	address+=2;
+	data>>=16;
+
+	*(__IO uint16_t*)address = (uint16_t)data;
+
+	while((FLASH -> SR & FLASH_SR_BSY)!=0);
+
+	FLASH -> CR &= ~FLASH_CR_PG;
+}
+
 
 void NMI_Handler(void)
 {

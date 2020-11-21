@@ -8,11 +8,14 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include UART/src/subdir.mk
+-include SW_Fucntions/src/subdir.mk
+-include Peripheral/src/subdir.mk
 -include Main/scr/subdir.mk
 -include Main/Startup/subdir.mk
--include LED/src/subdir.mk
+-include FreeRTOS_Source/portable/MemMang/subdir.mk
+-include FreeRTOS_Source/portable/GCC/ARM_CM4F/subdir.mk
 -include CMSIS/src/subdir.mk
+-include Analog/src/subdir.mk
 -include subdir.mk
 -include objects.mk
 

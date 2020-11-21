@@ -20,8 +20,8 @@ void InitPWM (void){
 
 	GPIOA	-> AFR[0]	|= (0x01 << (4*1));
 
-	TIM2	-> PSC		= 720-1;
-	TIM2	-> ARR		= 100000;
+	TIM2	-> PSC		= 72-1; //f CK_PSC / (PSC[15:0] + 1)
+	TIM2	-> ARR		= 20000;
 	TIM2	-> CCR2		= 0;
 
 	TIM2	-> CCMR1	&= ~TIM_CCMR1_OC2M;

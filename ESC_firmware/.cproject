@@ -42,16 +42,14 @@
 									<listOptionValue builtIn="false" value="DEBUG"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.1046737845" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/CMSIS}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/CMSIS/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/LED/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/LED}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/UART}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/UART/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/Main}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/Main/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/Main/Startup}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/Analog/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/Peripheral/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/FreeRTOS_Source/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESC_firmware/SW_Fucntions/inc}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1739531837" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>
@@ -176,5 +174,12 @@
 			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/ESC_firmware"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/ESC_firmware"/>
+		</configuration>
+	</storageModule>
 </cproject>

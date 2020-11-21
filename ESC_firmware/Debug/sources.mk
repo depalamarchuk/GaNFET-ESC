@@ -19,9 +19,12 @@ OBJCOPY_BIN :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+Analog/src \
 CMSIS/src \
-LED/src \
+FreeRTOS_Source/portable/GCC/ARM_CM4F \
+FreeRTOS_Source/portable/MemMang \
 Main/Startup \
 Main/scr \
-UART/src \
+Peripheral/src \
+SW_Fucntions/src \
 

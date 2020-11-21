@@ -1,6 +1,0 @@
-core_cm4.h:1679:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
-UART.c:7:6:InitUSART1	8	static
-UART.c:45:6:SendUSART1	16	static
-UART.c:52:6:SendStringUSART1	24	static
-UART.c:61:6:SendDataUSART1	16	static
-UART.c:68:6:USART1_IRQHandler	4	static
