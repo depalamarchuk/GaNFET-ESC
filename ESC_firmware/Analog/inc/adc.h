@@ -4,5 +4,5 @@
 
 /********************************************* Used functions ********************************************/
 
-void InitADC (void);
+void InitADC12 (void);
 uint16_t StartConvADC(void);

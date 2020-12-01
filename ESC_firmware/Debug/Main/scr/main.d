@@ -21,7 +21,9 @@ Main/scr/main.o: ../Main/scr/main.c \
  C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/FreeRTOS_Source/include/task.h \
  C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Peripheral/inc/LED.h \
  C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Peripheral/inc/UART.h \
+ C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Analog/inc/vrefbuf.h \
  C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Analog/inc/adc.h \
+ C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Analog/inc/opamp.h \
  C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Main/inc/sysinit.h
 
 C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Main/inc/main.h:
@@ -68,6 +70,10 @@ C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Peripheral/inc/LED.h:
 
 C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Peripheral/inc/UART.h:
 
+C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Analog/inc/vrefbuf.h:
+
 C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Analog/inc/adc.h:
+
+C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Analog/inc/opamp.h:
 
 C:/Users/Admin/Desktop/GaNFET-ESC/ESC_firmware/Main/inc/sysinit.h:

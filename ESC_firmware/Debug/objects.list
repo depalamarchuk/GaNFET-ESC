@@ -1,5 +1,6 @@
 "Analog/src/adc.o"
 "Analog/src/opamp.o"
+"Analog/src/vrefbuf.o"
 "CMSIS/src/system_stm32g4xx.o"
 "FreeRTOS_Source/portable/GCC/ARM_CM4F/croutine.o"
 "FreeRTOS_Source/portable/GCC/ARM_CM4F/event_groups.o"

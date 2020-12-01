@@ -6,7 +6,9 @@
 #include "queue.h"
 #include "LED.h"
 #include "UART.h"
+#include "vrefbuf.h"
 #include "adc.h"
+#include "opamp.h"
 #include "sysinit.h"
 
 /************************************************ Defines ************************************************/
@@ -29,4 +31,5 @@ TaskHandle_t TaskConvADCHandle;
 void vTaskLED (void *pvParameters);
 void vTaskConvADC (void *pvParameters);
 void vTaskSendUSART(void *pvParameters);
-
+void InitDMAusart1 (void);
+void WriteDMAuart1 (void);

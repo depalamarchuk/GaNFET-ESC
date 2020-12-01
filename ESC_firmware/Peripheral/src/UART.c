@@ -38,8 +38,8 @@ void InitUSART1 (void){
 	USART1	-> CR1		|= USART_CR1_RE;
 	USART1	-> CR1 		|= USART_CR1_UE;
 
-	//USART1	-> CR1		|= USART_CR1_RXNEIE;
-	//NVIC_EnableIRQ(USART1_IRQn);
+	USART1	-> CR1		|= USART_CR1_RXNEIE;
+	NVIC_EnableIRQ(USART1_IRQn);
 }
 
 
@@ -65,11 +65,11 @@ void SendDataUSART1 (uint8_t data){
 
 	USART1	->TDR 		= data;
 }
-/*
+
 void USART1_IRQHandler (void){
 	if (USART1->ISR & USART_CR1_RXNEIE)
 	{
 		USART1	-> ISR &= ~USART_CR1_RXNEIE;
 	}
 }
-*/
+

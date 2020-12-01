@@ -4,6 +4,4 @@
 
 /********************************************* Used functions ********************************************/
 
-void InitOpamp1 (void);
-void InitOpamp2 (void);
-void InitOpamp3 (void);
+void InitVrefbuf (void);

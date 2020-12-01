@@ -4,68 +4,87 @@
 
 /********************************************* Used functions ********************************************/
 
-void InitADC (void){
-	uint16_t ticks = 0;									//(1us = 168 ticks @ 168MHz)
-
-	// Internal voltage reference
-	RCC				-> APB2ENR	|= RCC_APB2ENR_SYSCFGEN;
-
-	VREFBUF			-> CSR		|= VREFBUF_CSR_VRS_0;	//VREFBUF = 2.5V
-	while (VREFBUF->CSR & VREFBUF_CSR_VRR);
-	VREFBUF			-> CSR		|= VREFBUF_CSR_ENVR;
-	VREFBUF			-> CSR		&= ~VREFBUF_CSR_HIZ;
+void InitADC12 (void){
+	uint16_t ticks = 0;														//(1us = 168 ticks @ 168MHz)
 
 	//Pin init
 
-	RCC				-> AHB2ENR 	|= RCC_AHB2ENR_ADC12EN;
-	RCC				-> AHB2ENR	|= RCC_AHB2ENR_GPIOAEN;
-	RCC				-> AHB2ENR	|= RCC_AHB2ENR_GPIOBEN;
+	RCC				-> AHB2ENR 		|= RCC_AHB2ENR_ADC12EN;
+	//RCC				-> AHB2ENR		|= RCC_AHB2ENR_GPIOAEN;
+	RCC				-> AHB2ENR		|= RCC_AHB2ENR_GPIOBEN;
 
-	//GPIOA			-> MODER	|= GPIO_MODER_MODE0;
-	GPIOB			-> MODER	|= GPIO_MODER_MODE11;
+	//GPIOA			-> MODER		|= GPIO_MODER_MODE0;
+	//GPIOA			-> MODER		|= GPIO_MODER_MODE2;
+	//GPIOA			-> MODER		|= GPIO_MODER_MODE4;
+	//GPIOA			-> MODER		|= GPIO_MODER_MODE6;
+	//GPIOB			-> MODER		|= GPIO_MODER_MODE1;
+	GPIOB			-> MODER		|= GPIO_MODER_MODE11;
+	//GPIOB			-> MODER		|= GPIO_MODER_MODE12;
 
-	RCC				-> CCIPR	|= RCC_CCIPR_ADC12SEL_0; 				//adc_ker_ck is PLLP
-	ADC12_COMMON	-> CCR		&= ~ADC_CCR_CKMODE;						//input ADC clock = adc_ker_ck
-	ADC12_COMMON	-> CCR		&= ~ADC_CCR_PRESC;						//input ADC clock not divided
-
-	//ADC12_COMMON	-> CCR		|= ADC_CCR_VREFEN;
+	//Clock
+	RCC				-> CCIPR		|= RCC_CCIPR_ADC12SEL_0; 				//adc_ker_ck is PLLP
+	ADC12_COMMON	-> CCR			&= ~ADC_CCR_CKMODE;						//input ADC clock = adc_ker_ck
+	ADC12_COMMON	-> CCR			&= ~ADC_CCR_PRESC;						//input ADC clock not divided
 
 	//Calibration
+	ADC1			->	CR			&= ~ADC_CR_DEEPPWD;						// Deep power down is enabled on reset
+	ADC1			->	CR			|= ADC_CR_ADVREGEN;					// ADC1 voltage regulator enable
 
-	ADC1			->	CR		&= ~ADC_CR_DEEPPWD;						// Deep power down is turned on
-	ADC1			->	CR		|= ADC_CR_ADVREGEN;						// ADC1 voltage regulator enable
+	//ADC2			->	CR			&= ~ADC_CR_DEEPPWD;
+	//ADC2			->	CR			|= ADC_CR_ADVREGEN;
 
 	while (!(ticks = 1680))
 		{
 			ticks++;
 		}
 
-	ADC1			->	CR		&= ~ADC_CR_ADCALDIF;
+	ADC1			->	CR			&= ~ADC_CR_ADCALDIF;
 
-	ADC1			->	CR		|= ADC_CR_ADCAL;						//start calibration
-	while (ADC1->CR & ADC_CR_ADCAL);									//wait for calibration to be completed
+	ADC1			->	CR			|= ADC_CR_ADCAL;						//start calibration
+	while (ADC1->CR & ADC_CR_ADCAL);										//wait for calibration to be completed
 
-	//Trigger
+	//ADC2			->	CR			&= ~ADC_CR_ADCALDIF;
 
-	ADC1			->	CFGR	&= ~ADC_CFGR_EXTEN;
-	ADC1			->	CFGR	&= ~ADC_CFGR_CONT;						//0 -- single conversion, 1 -- continuous conversion
-	ADC1			->	SMPR2	|= 0x7UL << ADC_SMPR2_SMP14_Pos;		//601.5 ADC clock cycles
-	ADC1			->	SQR1	&= ~ADC_SQR1_SQ1;
-	ADC1			->	SQR1	|= 0xEUL << ADC_SQR1_SQ1_Pos;			//ADC1_IN14 channel select
-	ADC1			->	SQR1	&= ~ADC_SQR1_L;							//Length of regular ADC channel = 1
+	//ADC2			->	CR			|= ADC_CR_ADCAL;						//start calibration
+	//while (ADC2->CR & ADC_CR_ADCAL);										//wait for calibration to be completed
+/*
+	RCC				->	APB1ENR1	|= RCC_APB1ENR1_TIM6EN;
+	TIM6			->	PSC			= 1-1;
+	TIM6			->	ARR			= 84000000;								//Recalculate 1MS per second
+	TIM6			->	CR2			|= TIM_CR2_MMS_1;						// Enable generation TRGO for ADC
+	TIM6			->	CR1			|= TIM_CR1_CEN;
+*/
+	ADC1			->	SMPR2		|= 0x7UL << ADC_SMPR2_SMP14_Pos;		//601.5 ADC clock cycles
 
-	//enable
+	//ADC1			->	CFGR		|= ADC_CFGR_DMAEN;
+	//ADC1			->	CFGR		&= ~ADC_CFGR_DMACFG;					//0: DMA One Shot mode selected
+	ADC1			->	CFGR		|= ADC_CFGR_JQDIS;						//Injected Queue disabled
 
-	ADC1			->	CR		|= ADC_CR_ADEN;
+	ADC1			->	JSQR		&= ~ADC_JSQR_JL;						//00: 1 conversion
+	//ADC1			->	JSQR		|= 0xDUL << ADC_JSQR_JEXTSEL_Pos;		//01101: Event 13
+	//ADC1			->	JSQR		|= ADC_JSQR_JEXTEN_0;					//01: Hardware trigger detection on the rising edge
+	ADC1			->	JSQR		&= ~ADC_JSQR_JEXTSEL;					//00000: Event 0
+	ADC1			->	JSQR		&= ~ADC_JSQR_JEXTEN;					//00: If JQDIS=1 (queue disabled), Hardware trigger detection disabled (conversions can be launched by software)
+	ADC1			->	JSQR		|= 0xEUL << ADC_JSQR_JSQ1_Pos;			//JSQ1 = ADC1_IN14 channel
 
+	//Interrupt
+	//ADC1			->IER			|= ADC_IER_JEOSIE;
+	//ADC2			->IER			|= ADC_IER_JEOSIE;
+	//NVIC_EnableIRQ(ADC1_2_IRQn);
+
+	//Enable
+	ADC1			->	CR			|= ADC_CR_ADEN;
 	while (!(ADC1->ISR & ADC_ISR_ADRDY));
+	//ADC2			->	CR			|= ADC_CR_ADEN;
+	//while (!(ADC2->ISR & ADC_ISR_ADRDY));
 }
+
 
 uint16_t StartConvADC(void)
 {
-	ADC1			-> CR		|= ADC_CR_ADSTART;
+	ADC1			-> CR			|= ADC_CR_JADSTART;
 
-	while (!(ADC1 -> ISR & ADC_ISR_EOC));
+	while (!(ADC1 -> ISR & ADC_ISR_JEOC));
 
-	return (ADC1 -> DR);
+	return (ADC1 -> JDR1);
 }

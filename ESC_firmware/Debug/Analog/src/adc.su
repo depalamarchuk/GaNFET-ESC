@@ -1,2 +1,2 @@
-adc.c:7:6:InitADC	16	static
-adc.c:64:10:StartConvADC	4	static
+adc.c:7:6:InitADC12	16	static
+adc.c:83:10:StartConvADC	4	static
