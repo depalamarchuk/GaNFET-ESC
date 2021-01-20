@@ -33,7 +33,7 @@ void InitADC12 (void){
 	//ADC2			->	CR			&= ~ADC_CR_DEEPPWD;
 	//ADC2			->	CR			|= ADC_CR_ADVREGEN;
 
-	while (!(ticks = 1680))
+	while (!(ticks == 1680))
 		{
 			ticks++;
 		}
@@ -47,39 +47,41 @@ void InitADC12 (void){
 
 	//ADC2			->	CR			|= ADC_CR_ADCAL;						//start calibration
 	//while (ADC2->CR & ADC_CR_ADCAL);										//wait for calibration to be completed
-/*
+
+	//TIM_CLK/((PSC + 1)*(ARR + 1)
 	RCC				->	APB1ENR1	|= RCC_APB1ENR1_TIM6EN;
-	TIM6			->	PSC			= 1-1;
-	TIM6			->	ARR			= 84000000;								//Recalculate 1MS per second
-	TIM6			->	CR2			|= TIM_CR2_MMS_1;						// Enable generation TRGO for ADC
+	TIM6			->	PSC			= 200-1;
+	TIM6			->	ARR			= 84;									//Recalculate 1MS per second
+	TIM6			->	CR2			|= TIM_CR2_MMS_1;						//Enable generation TRGO for ADC
 	TIM6			->	CR1			|= TIM_CR1_CEN;
-*/
+
 	ADC1			->	SMPR2		|= 0x7UL << ADC_SMPR2_SMP14_Pos;		//601.5 ADC clock cycles
 
 	//ADC1			->	CFGR		|= ADC_CFGR_DMAEN;
 	//ADC1			->	CFGR		&= ~ADC_CFGR_DMACFG;					//0: DMA One Shot mode selected
-	ADC1			->	CFGR		|= ADC_CFGR_JQDIS;						//Injected Queue disabled
+	//ADC1			->	CFGR		|= ADC_CFGR_JQDIS;						//Injected Queue disabled
 
-	ADC1			->	JSQR		&= ~ADC_JSQR_JL;						//00: 1 conversion
-	//ADC1			->	JSQR		|= 0xDUL << ADC_JSQR_JEXTSEL_Pos;		//01101: Event 13
-	//ADC1			->	JSQR		|= ADC_JSQR_JEXTEN_0;					//01: Hardware trigger detection on the rising edge
-	ADC1			->	JSQR		&= ~ADC_JSQR_JEXTSEL;					//00000: Event 0
-	ADC1			->	JSQR		&= ~ADC_JSQR_JEXTEN;					//00: If JQDIS=1 (queue disabled), Hardware trigger detection disabled (conversions can be launched by software)
+	ADC1			->	JSQR		|= 0xEUL << ADC_JSQR_JEXTSEL_Pos;		//adc_jext_trg14
+	ADC1			->	JSQR		|= ADC_JSQR_JEXTEN_0;					//01: Hardware trigger detection on the rising edge
 	ADC1			->	JSQR		|= 0xEUL << ADC_JSQR_JSQ1_Pos;			//JSQ1 = ADC1_IN14 channel
+	ADC1			->	JSQR		&= ~ADC_JSQR_JL;						//1 conversion
 
 	//Interrupt
-	//ADC1			->IER			|= ADC_IER_JEOSIE;
-	//ADC2			->IER			|= ADC_IER_JEOSIE;
-	//NVIC_EnableIRQ(ADC1_2_IRQn);
+	//ADC2			->	IER			|= ADC_IER_JEOSIE;
+	ADC1			->	IER			|= ADC_IER_JEOSIE;
+	NVIC_EnableIRQ(ADC1_2_IRQn);
+	NVIC_SetPriority(ADC1_2_IRQn, 5);
 
 	//Enable
 	ADC1			->	CR			|= ADC_CR_ADEN;
 	while (!(ADC1->ISR & ADC_ISR_ADRDY));
+
+	ADC1			->	CR			|= ADC_CR_JADSTART;
 	//ADC2			->	CR			|= ADC_CR_ADEN;
 	//while (!(ADC2->ISR & ADC_ISR_ADRDY));
 }
 
-
+/*
 uint16_t StartConvADC(void)
 {
 	ADC1			-> CR			|= ADC_CR_JADSTART;
@@ -88,3 +90,4 @@ uint16_t StartConvADC(void)
 
 	return (ADC1 -> JDR1);
 }
+*/

@@ -3,4 +3,8 @@ UART.c:7:6:InitUSART1	8	static
 UART.c:46:6:SendUSART1	16	static
 UART.c:53:6:SendStringUSART1	24	static
 UART.c:62:6:SendDataUSART1	16	static
-UART.c:69:6:USART1_IRQHandler	4	static
+UART.c:69:6:InitDMAusart1	24	static
+UART.c:102:6:WriteStrDMAusart1	24	static
+UART.c:116:6:WriteDataDMAusart1	16	static
+UART.c:130:6:USART1_IRQHandler	4	static
+UART.c:138:6:DMA1_CH7_IRQHandler	4	static

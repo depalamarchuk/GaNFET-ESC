@@ -47,6 +47,7 @@ Common symbol       size              file
 errno               0x4               c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-reent.o)
 xQueueRegistry      0x50              FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
 TaskConvADCHandle   0x4               Main/scr/main.o
+SendDataFMAC        0x4               Main/scr/main.o
 SendDataADC         0x4               Main/scr/main.o
 TaskSendUSARTHandle
                     0x4               Main/scr/main.o
@@ -488,8 +489,6 @@ Discarded input sections
                 0x0000000000000000      0x1a0 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
  .text.xQueuePeek
                 0x0000000000000000      0x1bc FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .text.xQueueReceiveFromISR
-                0x0000000000000000      0x116 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
  .text.xQueuePeekFromISR
                 0x0000000000000000       0xca FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
  .text.uxQueueSpacesAvailable
@@ -1008,6 +1007,7 @@ Discarded input sections
  .group         0x0000000000000000        0xc Main/scr/main.o
  .group         0x0000000000000000        0xc Main/scr/main.o
  .group         0x0000000000000000        0xc Main/scr/main.o
+ .group         0x0000000000000000        0xc Main/scr/main.o
  .text          0x0000000000000000        0x0 Main/scr/main.o
  .data          0x0000000000000000        0x0 Main/scr/main.o
  .bss           0x0000000000000000        0x0 Main/scr/main.o
@@ -1332,8 +1332,14 @@ Discarded input sections
  .text          0x0000000000000000        0x0 Peripheral/src/UART.o
  .data          0x0000000000000000        0x0 Peripheral/src/UART.o
  .bss           0x0000000000000000        0x0 Peripheral/src/UART.o
+ .text.SendUSART1
+                0x0000000000000000       0x3c Peripheral/src/UART.o
+ .text.SendStringUSART1
+                0x0000000000000000       0x36 Peripheral/src/UART.o
  .text.SendDataUSART1
                 0x0000000000000000       0x3c Peripheral/src/UART.o
+ .text.WriteDataDMAusart1
+                0x0000000000000000       0x60 Peripheral/src/UART.o
  .debug_macro   0x0000000000000000      0xa60 Peripheral/src/UART.o
  .debug_macro   0x0000000000000000       0x2e Peripheral/src/UART.o
  .debug_macro   0x0000000000000000       0x28 Peripheral/src/UART.o
@@ -1381,20 +1387,56 @@ Discarded input sections
  .ARM.attributes
                 0x0000000000000000       0x39 Peripheral/src/dma.o
  .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
+ .group         0x0000000000000000        0xc Peripheral/src/fmac.o
  .text          0x0000000000000000        0x0 Peripheral/src/fmac.o
  .data          0x0000000000000000        0x0 Peripheral/src/fmac.o
  .bss           0x0000000000000000        0x0 Peripheral/src/fmac.o
- .debug_info    0x0000000000000000       0x21 Peripheral/src/fmac.o
- .debug_abbrev  0x0000000000000000       0x13 Peripheral/src/fmac.o
- .debug_aranges
+ .text.StopFmacFunction
+                0x0000000000000000       0x20 Peripheral/src/fmac.o
+ .text.ResetFmac
+                0x0000000000000000       0x20 Peripheral/src/fmac.o
+ .text.WriteFmacBuffer
+                0x0000000000000000       0x38 Peripheral/src/fmac.o
+ .text.ReadFmacDataY
                 0x0000000000000000       0x18 Peripheral/src/fmac.o
- .debug_macro   0x0000000000000000       0x11 Peripheral/src/fmac.o
+ .text.SelectFmacPreloadFmacX1
+                0x0000000000000000       0x48 Peripheral/src/fmac.o
+ .text.SelectFmacPreloadFmacY
+                0x0000000000000000       0x48 Peripheral/src/fmac.o
+ .text.SelectFmacConvFir
+                0x0000000000000000       0x70 Peripheral/src/fmac.o
  .debug_macro   0x0000000000000000      0xa60 Peripheral/src/fmac.o
- .debug_line    0x0000000000000000       0x39 Peripheral/src/fmac.o
- .debug_str     0x0000000000000000     0x2cf2 Peripheral/src/fmac.o
- .comment       0x0000000000000000       0x7c Peripheral/src/fmac.o
- .ARM.attributes
-                0x0000000000000000       0x39 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x2e Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x28 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x22 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x8e Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x51 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0xef Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x6a Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000      0x1df Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x1c Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x22 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000      0x101 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000     0x1011 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000      0x11f Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000    0x130df Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x43 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000000000       0x22 Peripheral/src/fmac.o
  .group         0x0000000000000000        0xc Peripheral/src/init_timers.o
  .text          0x0000000000000000        0x0 Peripheral/src/init_timers.o
  .data          0x0000000000000000        0x0 Peripheral/src/init_timers.o
@@ -1510,11 +1552,8 @@ Discarded input sections
  .debug_frame   0x0000000000000000       0x20 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strcpy.o)
  .ARM.attributes
                 0x0000000000000000       0x34 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strcpy.o)
- .text          0x0000000000000000       0x10 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strlen.o)
  .data          0x0000000000000000        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strlen.o)
  .bss           0x0000000000000000        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strlen.o)
- .ARM.attributes
-                0x0000000000000000       0x1b c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strlen.o)
  .text          0x0000000000000000        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-svfprintf.o)
  .data          0x0000000000000000        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-svfprintf.o)
  .bss           0x0000000000000000        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-svfprintf.o)
@@ -1696,573 +1735,614 @@ LOAD c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000008000000                g_pfnVectors
                 0x00000000080001d8                . = ALIGN (0x4)
 
-.text           0x00000000080001e0     0x35ac
+.text           0x00000000080001e0     0x3bec
                 0x00000000080001e0                . = ALIGN (0x4)
  *(.text)
  .text          0x00000000080001e0       0x40 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .text          0x0000000008000220       0x10 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strlen.o)
+                0x0000000008000220                strlen
  *(.text*)
- .text.InitADC12
-                0x0000000008000220      0x144 Analog/src/adc.o
-                0x0000000008000220                InitADC12
- .text.StartConvADC
-                0x0000000008000364       0x38 Analog/src/adc.o
-                0x0000000008000364                StartConvADC
- .text.InitOpamp1
-                0x000000000800039c      0x224 Analog/src/opamp.o
-                0x000000000800039c                InitOpamp1
- .text.InitOpamp2
-                0x00000000080005c0      0x224 Analog/src/opamp.o
-                0x00000000080005c0                InitOpamp2
- .text.InitOpamp3
-                0x00000000080007e4      0x21c Analog/src/opamp.o
-                0x00000000080007e4                InitOpamp3
- .text.InitVrefbuf
-                0x0000000008000a00       0x54 Analog/src/vrefbuf.o
-                0x0000000008000a00                InitVrefbuf
- .text.SystemInit
-                0x0000000008000a54       0x2c CMSIS/src/system_stm32g4xx.o
-                0x0000000008000a54                SystemInit
- .text.vListInitialise
-                0x0000000008000a80       0x40 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
-                0x0000000008000a80                vListInitialise
- .text.vListInitialiseItem
-                0x0000000008000ac0       0x1a FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
-                0x0000000008000ac0                vListInitialiseItem
- .text.vListInsertEnd
-                0x0000000008000ada       0x48 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
-                0x0000000008000ada                vListInsertEnd
- .text.vListInsert
-                0x0000000008000b22       0x72 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
-                0x0000000008000b22                vListInsert
- .text.uxListRemove
-                0x0000000008000b94       0x54 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
-                0x0000000008000b94                uxListRemove
- .text.pxPortInitialiseStack
-                0x0000000008000be8       0x68 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000be8                pxPortInitialiseStack
- .text.prvTaskExitError
-                0x0000000008000c50       0x54 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- *fill*         0x0000000008000ca4        0xc 
- .text.SVC_Handler
-                0x0000000008000cb0       0x28 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000cb0                SVC_Handler
- .text.prvPortStartFirstTask
-                0x0000000008000cd8       0x2c FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- .text.xPortStartScheduler
-                0x0000000008000d04      0x13c FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000d04                xPortStartScheduler
- .text.vPortEnterCritical
-                0x0000000008000e40       0x5c FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000e40                vPortEnterCritical
- .text.vPortExitCritical
-                0x0000000008000e9c       0x50 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000e9c                vPortExitCritical
- *fill*         0x0000000008000eec        0x4 
- .text.PendSV_Handler
-                0x0000000008000ef0       0x68 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000ef0                PendSV_Handler
- .text.SysTick_Handler
-                0x0000000008000f58       0x40 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000f58                SysTick_Handler
- .text.vPortSetupTimerInterrupt
-                0x0000000008000f98       0x38 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000f98                vPortSetupTimerInterrupt
- .text.vPortEnableVFP
-                0x0000000008000fd0       0x18 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- .text.vPortValidateInterruptPriority
-                0x0000000008000fe8       0x7c FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008000fe8                vPortValidateInterruptPriority
- .text.xQueueGenericReset
-                0x0000000008001064       0xd0 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
-                0x0000000008001064                xQueueGenericReset
- .text.xQueueGenericCreate
-                0x0000000008001134       0x9c FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
-                0x0000000008001134                xQueueGenericCreate
- .text.prvInitialiseNewQueue
-                0x00000000080011d0       0x46 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- *fill*         0x0000000008001216        0x2 
- .text.xQueueGenericSend
-                0x0000000008001218      0x1f4 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
-                0x0000000008001218                xQueueGenericSend
- .text.xQueueGenericSendFromISR
-                0x000000000800140c      0x14a FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
-                0x000000000800140c                xQueueGenericSendFromISR
- *fill*         0x0000000008001556        0x2 
- .text.xQueueReceive
-                0x0000000008001558      0x1b8 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
-                0x0000000008001558                xQueueReceive
- .text.uxQueueMessagesWaiting
-                0x0000000008001710       0x3a FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
-                0x0000000008001710                uxQueueMessagesWaiting
- .text.prvCopyDataToQueue
-                0x000000000800174a       0xb8 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .text.prvCopyDataFromQueue
-                0x0000000008001802       0x4c FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .text.prvUnlockQueue
-                0x000000000800184e       0xa4 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .text.prvIsQueueEmpty
-                0x00000000080018f2       0x2c FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .text.prvIsQueueFull
-                0x000000000800191e       0x30 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- *fill*         0x000000000800194e        0x2 
- .text.vQueueAddToRegistry
-                0x0000000008001950       0x50 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
-                0x0000000008001950                vQueueAddToRegistry
- .text.vQueueWaitForMessageRestricted
-                0x00000000080019a0       0x68 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
-                0x00000000080019a0                vQueueWaitForMessageRestricted
- .text.xTaskCreate
-                0x0000000008001a08       0x82 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008001a08                xTaskCreate
- .text.prvInitialiseNewTask
-                0x0000000008001a8a      0x124 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- *fill*         0x0000000008001bae        0x2 
- .text.prvAddNewTaskToReadyList
-                0x0000000008001bb0       0xe0 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .text.vTaskDelay
-                0x0000000008001c90       0x68 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008001c90                vTaskDelay
- .text.vTaskStartScheduler
-                0x0000000008001cf8       0x98 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008001cf8                vTaskStartScheduler
- .text.vTaskSuspendAll
-                0x0000000008001d90       0x1c FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008001d90                vTaskSuspendAll
- .text.xTaskResumeAll
-                0x0000000008001dac      0x138 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008001dac                xTaskResumeAll
- .text.xTaskGetTickCount
-                0x0000000008001ee4       0x20 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008001ee4                xTaskGetTickCount
- .text.xTaskIncrementTick
-                0x0000000008001f04      0x170 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008001f04                xTaskIncrementTick
- .text.vTaskSwitchContext
-                0x0000000008002074       0xb8 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008002074                vTaskSwitchContext
- .text.vTaskPlaceOnEventList
-                0x000000000800212c       0x48 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x000000000800212c                vTaskPlaceOnEventList
- .text.vTaskPlaceOnEventListRestricted
-                0x0000000008002174       0x54 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008002174                vTaskPlaceOnEventListRestricted
- .text.xTaskRemoveFromEventList
-                0x00000000080021c8       0xc4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x00000000080021c8                xTaskRemoveFromEventList
- .text.vTaskInternalSetTimeOutState
-                0x000000000800228c       0x2c FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x000000000800228c                vTaskInternalSetTimeOutState
- .text.xTaskCheckForTimeOut
-                0x00000000080022b8       0xc8 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x00000000080022b8                xTaskCheckForTimeOut
- .text.vTaskMissedYield
-                0x0000000008002380       0x18 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000008002380                vTaskMissedYield
- .text.prvIdleTask
-                0x0000000008002398       0x30 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .text.prvInitialiseTaskLists
-                0x00000000080023c8       0x80 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .text.prvCheckTasksWaitingTermination
-                0x0000000008002448       0x58 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .text.prvDeleteTCB
-                0x00000000080024a0       0x20 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .text.prvResetNextTaskUnblockTime
-                0x00000000080024c0       0x38 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .text.xTaskGetSchedulerState
-                0x00000000080024f8       0x3c FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x00000000080024f8                xTaskGetSchedulerState
- .text.prvAddCurrentTaskToDelayedList
-                0x0000000008002534       0xa8 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .text.xTimerCreateTimerTask
-                0x00000000080025dc       0x60 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
-                0x00000000080025dc                xTimerCreateTimerTask
- .text.xTimerGenericCommand
-                0x000000000800263c       0x98 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
-                0x000000000800263c                xTimerGenericCommand
- .text.prvProcessExpiredTimer
-                0x00000000080026d4       0x98 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.prvTimerTask
-                0x000000000800276c       0x24 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.prvProcessTimerOrBlockTask
-                0x0000000008002790       0x9c FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.prvGetNextExpireTime
-                0x000000000800282c       0x48 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.prvSampleTimeNow
-                0x0000000008002874       0x40 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.prvInsertTimerInActiveList
-                0x00000000080028b4       0x84 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.prvProcessReceivedCommands
-                0x0000000008002938      0x188 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.prvSwitchTimerLists
-                0x0000000008002ac0       0xc8 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.prvCheckForValidListAndQueue
-                0x0000000008002b88       0x6c FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .text.pvPortMalloc
-                0x0000000008002bf4       0x8c FreeRTOS_Source/portable/MemMang/heap_1.o
-                0x0000000008002bf4                pvPortMalloc
- .text.vPortFree
-                0x0000000008002c80       0x2e FreeRTOS_Source/portable/MemMang/heap_1.o
-                0x0000000008002c80                vPortFree
- *fill*         0x0000000008002cae        0x2 
- .text.Reset_Handler
-                0x0000000008002cb0       0x50 Main/Startup/startup_stm32g473cetx.o
-                0x0000000008002cb0                Reset_Handler
- .text.Default_Handler
-                0x0000000008002d00        0x2 Main/Startup/startup_stm32g473cetx.o
-                0x0000000008002d00                EXTI2_IRQHandler
-                0x0000000008002d00                TIM8_TRG_COM_IRQHandler
-                0x0000000008002d00                TIM8_CC_IRQHandler
-                0x0000000008002d00                DMA2_CH8_IRQHandler
-                0x0000000008002d00                DebugMon_Handler
-                0x0000000008002d00                DMA1_CH4_IRQHandler
-                0x0000000008002d00                SPI4_IRQHandler
-                0x0000000008002d00                FDCAN3_intr1_IRQHandler
-                0x0000000008002d00                TIM1_CC_IRQHandler
-                0x0000000008002d00                Cordic_IRQHandler
-                0x0000000008002d00                HardFault_Handler
-                0x0000000008002d00                USB_HP_IRQHandler
-                0x0000000008002d00                EXTI3_IRQHandler
-                0x0000000008002d00                I2C3_ER_IRQHandler
-                0x0000000008002d00                DMA1_CH8_IRQHandler
-                0x0000000008002d00                TIM6_DACUNDER_IRQHandler
-                0x0000000008002d00                EXTI0_IRQHandler
-                0x0000000008002d00                I2C2_EV_IRQHandler
-                0x0000000008002d00                DMA2_CH1_IRQHandler
-                0x0000000008002d00                FPU_IRQHandler
-                0x0000000008002d00                TIM1_UP_TIM16_IRQHandler
-                0x0000000008002d00                DMA2_CH7_IRQHandler
-                0x0000000008002d00                UsageFault_Handler
-                0x0000000008002d00                ADC1_2_IRQHandler
-                0x0000000008002d00                SPI1_IRQHandler
-                0x0000000008002d00                DMA1_CH7_IRQHandler
-                0x0000000008002d00                TIM8_UP_IRQHandler
-                0x0000000008002d00                USBWakeUP_IRQHandler
-                0x0000000008002d00                RTC_ALARM_IRQHandler
-                0x0000000008002d00                DMA1_CH6_IRQHandler
-                0x0000000008002d00                TIM20_TRG_COM_IRQHandler
-                0x0000000008002d00                USART3_IRQHandler
-                0x0000000008002d00                LPUART_IRQHandler
-                0x0000000008002d00                UART5_IRQHandler
-                0x0000000008002d00                ADC3_IRQHandler
-                0x0000000008002d00                TIM4_IRQHandler
-                0x0000000008002d00                QUADSPI_IRQHandler
-                0x0000000008002d00                I2C1_EV_IRQHandler
-                0x0000000008002d00                DMA2_CH5_IRQHandler
-                0x0000000008002d00                UART4_IRQHandler
-                0x0000000008002d00                DMA1_CH3_IRQHandler
-                0x0000000008002d00                TIM3_IRQHandler
-                0x0000000008002d00                RCC_IRQHandler
-                0x0000000008002d00                TIM20_UP_IRQHandler
-                0x0000000008002d00                TIM1_TRG_COM_IRQHandler
-                0x0000000008002d00                Default_Handler
-                0x0000000008002d00                FMAC_IRQHandler
-                0x0000000008002d00                EXTI15_10_IRQHandler
-                0x0000000008002d00                TIM7_IRQHandler
-                0x0000000008002d00                TIM5_IRQHandler
-                0x0000000008002d00                UCPD1_IRQHandler
-                0x0000000008002d00                I2C3_EV_IRQHandler
-                0x0000000008002d00                EXTI9_5_IRQHandler
-                0x0000000008002d00                DMA1_CH2_IRQHandler
-                0x0000000008002d00                RTC_WKUP_IRQHandler
-                0x0000000008002d00                SAI_IRQHandler
-                0x0000000008002d00                PVD_PVM_IRQHandler
-                0x0000000008002d00                fdcan1_intr1_it_IRQHandler
-                0x0000000008002d00                SPI2_IRQHandler
-                0x0000000008002d00                DMA1_CH1_IRQHandler
-                0x0000000008002d00                MemManage_Handler
-                0x0000000008002d00                ADC5_IRQHandler
-                0x0000000008002d00                CRS_IRQHandler
-                0x0000000008002d00                USB_LP_IRQHandler
-                0x0000000008002d00                EXTI4_IRQHandler
-                0x0000000008002d00                RNG_IRQHandler
-                0x0000000008002d00                ADC4_IRQHandler
-                0x0000000008002d00                FDCAN2_intr0_IRQHandler
-                0x0000000008002d00                WWDG_IRQHandler
-                0x0000000008002d00                I2C4_EV_IRQHandler
-                0x0000000008002d00                TIM2_IRQHandler
-                0x0000000008002d00                COMP7_IRQHandler
-                0x0000000008002d00                COMP1_2_3_IRQHandler
-                0x0000000008002d00                EXTI1_IRQHandler
-                0x0000000008002d00                AES_IRQHandler
-                0x0000000008002d00                fdcan1_intr0_it_IRQHandler
-                0x0000000008002d00                USART2_IRQHandler
-                0x0000000008002d00                COMP4_5_6_IRQHandler
-                0x0000000008002d00                TIM20_BRK_IRQHandler
-                0x0000000008002d00                I2C2_ER_IRQHandler
-                0x0000000008002d00                FDCAN2_intr1_IRQHandler
-                0x0000000008002d00                FDCAN3_intr0_IRQHandler
-                0x0000000008002d00                TIM8_BRK_IRQHandler
-                0x0000000008002d00                FLASH_IRQHandler
-                0x0000000008002d00                TIM20_CC_IRQHandler
-                0x0000000008002d00                BusFault_Handler
-                0x0000000008002d00                SPI3_IRQHandler
-                0x0000000008002d00                DMA2_CH6_IRQHandler
-                0x0000000008002d00                DMA2_CH3_IRQHandler
-                0x0000000008002d00                DMA2_CH2_IRQHandler
-                0x0000000008002d00                I2C1_ER_IRQHandler
-                0x0000000008002d00                FMC_IRQHandler
-                0x0000000008002d00                DMA1_CH5_IRQHandler
-                0x0000000008002d00                DMA2_CH4_IRQHandler
-                0x0000000008002d00                LPTIM1_IRQHandler
-                0x0000000008002d00                DMAMUX_OVR_IRQHandler
-                0x0000000008002d00                I2C4_ER_IRQHandler
-                0x0000000008002d00                RTC_TAMP_CSS_LSE_IRQHandler
-                0x0000000008002d00                TIM1_BRK_TIM15_IRQHandler
- *fill*         0x0000000008002d02        0x2 
- .text.main     0x0000000008002d04       0xa0 Main/scr/main.o
-                0x0000000008002d04                main
- .text.vTaskLED
-                0x0000000008002da4       0x12 Main/scr/main.o
-                0x0000000008002da4                vTaskLED
- *fill*         0x0000000008002db6        0x2 
- .text.vTaskSendUSART
-                0x0000000008002db8      0x144 Main/scr/main.o
-                0x0000000008002db8                vTaskSendUSART
- .text.vTaskConvADC
-                0x0000000008002efc       0x70 Main/scr/main.o
-                0x0000000008002efc                vTaskConvADC
- .text.InitDMAusart1
-                0x0000000008002f6c       0xd4 Main/scr/main.o
-                0x0000000008002f6c                InitDMAusart1
- .text.WriteDMAuart1
-                0x0000000008003040       0x40 Main/scr/main.o
-                0x0000000008003040                WriteDMAuart1
- .text.InitRCC  0x0000000008003080      0x1c4 Main/scr/sysinit.o
-                0x0000000008003080                InitRCC
- .text.NMI_Handler
-                0x0000000008003244       0x2c Main/scr/sysinit.o
-                0x0000000008003244                NMI_Handler
- .text.InitLedGPIO
-                0x0000000008003270       0xac Peripheral/src/LED.o
-                0x0000000008003270                InitLedGPIO
- .text.SetLED   0x000000000800331c      0x114 Peripheral/src/LED.o
-                0x000000000800331c                SetLED
- .text.ToggleLED
-                0x0000000008003430       0x78 Peripheral/src/LED.o
-                0x0000000008003430                ToggleLED
- .text.BlinkLED
-                0x00000000080034a8       0x28 Peripheral/src/LED.o
-                0x00000000080034a8                BlinkLED
  .text.__NVIC_EnableIRQ
-                0x00000000080034d0       0x3c Peripheral/src/UART.o
+                0x0000000008000230       0x3c Analog/src/adc.o
+ .text.__NVIC_SetPriority
+                0x000000000800026c       0x54 Analog/src/adc.o
+ .text.InitADC12
+                0x00000000080002c0      0x198 Analog/src/adc.o
+                0x00000000080002c0                InitADC12
+ .text.InitOpamp1
+                0x0000000008000458      0x24c Analog/src/opamp.o
+                0x0000000008000458                InitOpamp1
+ .text.InitOpamp2
+                0x00000000080006a4      0x24c Analog/src/opamp.o
+                0x00000000080006a4                InitOpamp2
+ .text.InitOpamp3
+                0x00000000080008f0      0x244 Analog/src/opamp.o
+                0x00000000080008f0                InitOpamp3
+ .text.InitVrefbuf
+                0x0000000008000b34       0x54 Analog/src/vrefbuf.o
+                0x0000000008000b34                InitVrefbuf
+ .text.SystemInit
+                0x0000000008000b88       0x2c CMSIS/src/system_stm32g4xx.o
+                0x0000000008000b88                SystemInit
+ .text.vListInitialise
+                0x0000000008000bb4       0x40 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+                0x0000000008000bb4                vListInitialise
+ .text.vListInitialiseItem
+                0x0000000008000bf4       0x1a FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+                0x0000000008000bf4                vListInitialiseItem
+ .text.vListInsertEnd
+                0x0000000008000c0e       0x48 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+                0x0000000008000c0e                vListInsertEnd
+ .text.vListInsert
+                0x0000000008000c56       0x72 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+                0x0000000008000c56                vListInsert
+ .text.uxListRemove
+                0x0000000008000cc8       0x54 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+                0x0000000008000cc8                uxListRemove
+ .text.pxPortInitialiseStack
+                0x0000000008000d1c       0x68 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008000d1c                pxPortInitialiseStack
+ .text.prvTaskExitError
+                0x0000000008000d84       0x54 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ *fill*         0x0000000008000dd8        0x8 
+ .text.SVC_Handler
+                0x0000000008000de0       0x28 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008000de0                SVC_Handler
+ .text.prvPortStartFirstTask
+                0x0000000008000e08       0x2c FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ .text.xPortStartScheduler
+                0x0000000008000e34      0x13c FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008000e34                xPortStartScheduler
+ .text.vPortEnterCritical
+                0x0000000008000f70       0x5c FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008000f70                vPortEnterCritical
+ .text.vPortExitCritical
+                0x0000000008000fcc       0x50 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008000fcc                vPortExitCritical
+ *fill*         0x000000000800101c        0x4 
+ .text.PendSV_Handler
+                0x0000000008001020       0x68 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008001020                PendSV_Handler
+ .text.SysTick_Handler
+                0x0000000008001088       0x40 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008001088                SysTick_Handler
+ .text.vPortSetupTimerInterrupt
+                0x00000000080010c8       0x38 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x00000000080010c8                vPortSetupTimerInterrupt
+ .text.vPortEnableVFP
+                0x0000000008001100       0x18 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ .text.vPortValidateInterruptPriority
+                0x0000000008001118       0x7c FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008001118                vPortValidateInterruptPriority
+ .text.xQueueGenericReset
+                0x0000000008001194       0xd0 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000008001194                xQueueGenericReset
+ .text.xQueueGenericCreate
+                0x0000000008001264       0x9c FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000008001264                xQueueGenericCreate
+ .text.prvInitialiseNewQueue
+                0x0000000008001300       0x46 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ *fill*         0x0000000008001346        0x2 
+ .text.xQueueGenericSend
+                0x0000000008001348      0x1f4 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000008001348                xQueueGenericSend
+ .text.xQueueGenericSendFromISR
+                0x000000000800153c      0x14a FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x000000000800153c                xQueueGenericSendFromISR
+ *fill*         0x0000000008001686        0x2 
+ .text.xQueueReceive
+                0x0000000008001688      0x1b8 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000008001688                xQueueReceive
+ .text.xQueueReceiveFromISR
+                0x0000000008001840      0x116 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000008001840                xQueueReceiveFromISR
+ .text.uxQueueMessagesWaiting
+                0x0000000008001956       0x3a FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000008001956                uxQueueMessagesWaiting
+ .text.prvCopyDataToQueue
+                0x0000000008001990       0xb8 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .text.prvCopyDataFromQueue
+                0x0000000008001a48       0x4c FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .text.prvUnlockQueue
+                0x0000000008001a94       0xa4 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .text.prvIsQueueEmpty
+                0x0000000008001b38       0x2c FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .text.prvIsQueueFull
+                0x0000000008001b64       0x30 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .text.vQueueAddToRegistry
+                0x0000000008001b94       0x50 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000008001b94                vQueueAddToRegistry
+ .text.vQueueWaitForMessageRestricted
+                0x0000000008001be4       0x68 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000008001be4                vQueueWaitForMessageRestricted
+ .text.xTaskCreate
+                0x0000000008001c4c       0x82 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000008001c4c                xTaskCreate
+ .text.prvInitialiseNewTask
+                0x0000000008001cce      0x124 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ *fill*         0x0000000008001df2        0x2 
+ .text.prvAddNewTaskToReadyList
+                0x0000000008001df4       0xe0 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .text.vTaskDelay
+                0x0000000008001ed4       0x68 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000008001ed4                vTaskDelay
+ .text.vTaskStartScheduler
+                0x0000000008001f3c       0x98 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000008001f3c                vTaskStartScheduler
+ .text.vTaskSuspendAll
+                0x0000000008001fd4       0x1c FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000008001fd4                vTaskSuspendAll
+ .text.xTaskResumeAll
+                0x0000000008001ff0      0x138 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000008001ff0                xTaskResumeAll
+ .text.xTaskGetTickCount
+                0x0000000008002128       0x20 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000008002128                xTaskGetTickCount
+ .text.xTaskIncrementTick
+                0x0000000008002148      0x170 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000008002148                xTaskIncrementTick
+ .text.vTaskSwitchContext
+                0x00000000080022b8       0xb8 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000080022b8                vTaskSwitchContext
+ .text.vTaskPlaceOnEventList
+                0x0000000008002370       0x48 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000008002370                vTaskPlaceOnEventList
+ .text.vTaskPlaceOnEventListRestricted
+                0x00000000080023b8       0x54 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000080023b8                vTaskPlaceOnEventListRestricted
+ .text.xTaskRemoveFromEventList
+                0x000000000800240c       0xc4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x000000000800240c                xTaskRemoveFromEventList
+ .text.vTaskInternalSetTimeOutState
+                0x00000000080024d0       0x2c FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000080024d0                vTaskInternalSetTimeOutState
+ .text.xTaskCheckForTimeOut
+                0x00000000080024fc       0xc8 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000080024fc                xTaskCheckForTimeOut
+ .text.vTaskMissedYield
+                0x00000000080025c4       0x18 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000080025c4                vTaskMissedYield
+ .text.prvIdleTask
+                0x00000000080025dc       0x30 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .text.prvInitialiseTaskLists
+                0x000000000800260c       0x80 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .text.prvCheckTasksWaitingTermination
+                0x000000000800268c       0x58 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .text.prvDeleteTCB
+                0x00000000080026e4       0x20 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .text.prvResetNextTaskUnblockTime
+                0x0000000008002704       0x38 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .text.xTaskGetSchedulerState
+                0x000000000800273c       0x3c FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x000000000800273c                xTaskGetSchedulerState
+ .text.prvAddCurrentTaskToDelayedList
+                0x0000000008002778       0xa8 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .text.xTimerCreateTimerTask
+                0x0000000008002820       0x60 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+                0x0000000008002820                xTimerCreateTimerTask
+ .text.xTimerGenericCommand
+                0x0000000008002880       0x98 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+                0x0000000008002880                xTimerGenericCommand
+ .text.prvProcessExpiredTimer
+                0x0000000008002918       0x98 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.prvTimerTask
+                0x00000000080029b0       0x24 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.prvProcessTimerOrBlockTask
+                0x00000000080029d4       0x9c FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.prvGetNextExpireTime
+                0x0000000008002a70       0x48 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.prvSampleTimeNow
+                0x0000000008002ab8       0x40 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.prvInsertTimerInActiveList
+                0x0000000008002af8       0x84 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.prvProcessReceivedCommands
+                0x0000000008002b7c      0x188 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.prvSwitchTimerLists
+                0x0000000008002d04       0xc8 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.prvCheckForValidListAndQueue
+                0x0000000008002dcc       0x6c FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .text.pvPortMalloc
+                0x0000000008002e38       0x8c FreeRTOS_Source/portable/MemMang/heap_1.o
+                0x0000000008002e38                pvPortMalloc
+ .text.vPortFree
+                0x0000000008002ec4       0x2e FreeRTOS_Source/portable/MemMang/heap_1.o
+                0x0000000008002ec4                vPortFree
+ *fill*         0x0000000008002ef2        0x2 
+ .text.Reset_Handler
+                0x0000000008002ef4       0x50 Main/Startup/startup_stm32g473cetx.o
+                0x0000000008002ef4                Reset_Handler
+ .text.Default_Handler
+                0x0000000008002f44        0x2 Main/Startup/startup_stm32g473cetx.o
+                0x0000000008002f44                EXTI2_IRQHandler
+                0x0000000008002f44                TIM8_TRG_COM_IRQHandler
+                0x0000000008002f44                TIM8_CC_IRQHandler
+                0x0000000008002f44                DMA2_CH8_IRQHandler
+                0x0000000008002f44                DebugMon_Handler
+                0x0000000008002f44                DMA1_CH4_IRQHandler
+                0x0000000008002f44                SPI4_IRQHandler
+                0x0000000008002f44                FDCAN3_intr1_IRQHandler
+                0x0000000008002f44                TIM1_CC_IRQHandler
+                0x0000000008002f44                Cordic_IRQHandler
+                0x0000000008002f44                HardFault_Handler
+                0x0000000008002f44                USB_HP_IRQHandler
+                0x0000000008002f44                EXTI3_IRQHandler
+                0x0000000008002f44                I2C3_ER_IRQHandler
+                0x0000000008002f44                DMA1_CH8_IRQHandler
+                0x0000000008002f44                TIM6_DACUNDER_IRQHandler
+                0x0000000008002f44                EXTI0_IRQHandler
+                0x0000000008002f44                I2C2_EV_IRQHandler
+                0x0000000008002f44                DMA2_CH1_IRQHandler
+                0x0000000008002f44                FPU_IRQHandler
+                0x0000000008002f44                TIM1_UP_TIM16_IRQHandler
+                0x0000000008002f44                DMA2_CH7_IRQHandler
+                0x0000000008002f44                UsageFault_Handler
+                0x0000000008002f44                SPI1_IRQHandler
+                0x0000000008002f44                TIM8_UP_IRQHandler
+                0x0000000008002f44                USBWakeUP_IRQHandler
+                0x0000000008002f44                RTC_ALARM_IRQHandler
+                0x0000000008002f44                DMA1_CH6_IRQHandler
+                0x0000000008002f44                TIM20_TRG_COM_IRQHandler
+                0x0000000008002f44                USART3_IRQHandler
+                0x0000000008002f44                LPUART_IRQHandler
+                0x0000000008002f44                UART5_IRQHandler
+                0x0000000008002f44                ADC3_IRQHandler
+                0x0000000008002f44                TIM4_IRQHandler
+                0x0000000008002f44                QUADSPI_IRQHandler
+                0x0000000008002f44                I2C1_EV_IRQHandler
+                0x0000000008002f44                DMA2_CH5_IRQHandler
+                0x0000000008002f44                UART4_IRQHandler
+                0x0000000008002f44                DMA1_CH3_IRQHandler
+                0x0000000008002f44                TIM3_IRQHandler
+                0x0000000008002f44                RCC_IRQHandler
+                0x0000000008002f44                TIM20_UP_IRQHandler
+                0x0000000008002f44                TIM1_TRG_COM_IRQHandler
+                0x0000000008002f44                Default_Handler
+                0x0000000008002f44                EXTI15_10_IRQHandler
+                0x0000000008002f44                TIM7_IRQHandler
+                0x0000000008002f44                TIM5_IRQHandler
+                0x0000000008002f44                UCPD1_IRQHandler
+                0x0000000008002f44                I2C3_EV_IRQHandler
+                0x0000000008002f44                EXTI9_5_IRQHandler
+                0x0000000008002f44                DMA1_CH2_IRQHandler
+                0x0000000008002f44                RTC_WKUP_IRQHandler
+                0x0000000008002f44                SAI_IRQHandler
+                0x0000000008002f44                PVD_PVM_IRQHandler
+                0x0000000008002f44                fdcan1_intr1_it_IRQHandler
+                0x0000000008002f44                SPI2_IRQHandler
+                0x0000000008002f44                DMA1_CH1_IRQHandler
+                0x0000000008002f44                MemManage_Handler
+                0x0000000008002f44                ADC5_IRQHandler
+                0x0000000008002f44                CRS_IRQHandler
+                0x0000000008002f44                USB_LP_IRQHandler
+                0x0000000008002f44                EXTI4_IRQHandler
+                0x0000000008002f44                RNG_IRQHandler
+                0x0000000008002f44                ADC4_IRQHandler
+                0x0000000008002f44                FDCAN2_intr0_IRQHandler
+                0x0000000008002f44                WWDG_IRQHandler
+                0x0000000008002f44                I2C4_EV_IRQHandler
+                0x0000000008002f44                TIM2_IRQHandler
+                0x0000000008002f44                COMP7_IRQHandler
+                0x0000000008002f44                COMP1_2_3_IRQHandler
+                0x0000000008002f44                EXTI1_IRQHandler
+                0x0000000008002f44                AES_IRQHandler
+                0x0000000008002f44                fdcan1_intr0_it_IRQHandler
+                0x0000000008002f44                USART2_IRQHandler
+                0x0000000008002f44                COMP4_5_6_IRQHandler
+                0x0000000008002f44                TIM20_BRK_IRQHandler
+                0x0000000008002f44                I2C2_ER_IRQHandler
+                0x0000000008002f44                FDCAN2_intr1_IRQHandler
+                0x0000000008002f44                FDCAN3_intr0_IRQHandler
+                0x0000000008002f44                TIM8_BRK_IRQHandler
+                0x0000000008002f44                FLASH_IRQHandler
+                0x0000000008002f44                TIM20_CC_IRQHandler
+                0x0000000008002f44                BusFault_Handler
+                0x0000000008002f44                SPI3_IRQHandler
+                0x0000000008002f44                DMA2_CH6_IRQHandler
+                0x0000000008002f44                DMA2_CH3_IRQHandler
+                0x0000000008002f44                DMA2_CH2_IRQHandler
+                0x0000000008002f44                I2C1_ER_IRQHandler
+                0x0000000008002f44                FMC_IRQHandler
+                0x0000000008002f44                DMA1_CH5_IRQHandler
+                0x0000000008002f44                DMA2_CH4_IRQHandler
+                0x0000000008002f44                LPTIM1_IRQHandler
+                0x0000000008002f44                DMAMUX_OVR_IRQHandler
+                0x0000000008002f44                I2C4_ER_IRQHandler
+                0x0000000008002f44                RTC_TAMP_CSS_LSE_IRQHandler
+                0x0000000008002f44                TIM1_BRK_TIM15_IRQHandler
+ *fill*         0x0000000008002f46        0x2 
+ .text.main     0x0000000008002f48       0xe4 Main/scr/main.o
+                0x0000000008002f48                main
+ .text.vTaskLED
+                0x000000000800302c       0x12 Main/scr/main.o
+                0x000000000800302c                vTaskLED
+ *fill*         0x000000000800303e        0x2 
+ .text.vTaskSendUSART
+                0x0000000008003040       0xe8 Main/scr/main.o
+                0x0000000008003040                vTaskSendUSART
+ .text.ADC1_2_IRQHandler
+                0x0000000008003128       0x58 Main/scr/main.o
+                0x0000000008003128                ADC1_2_IRQHandler
+ .text.FMAC_IRQHandler
+                0x0000000008003180       0x4c Main/scr/main.o
+                0x0000000008003180                FMAC_IRQHandler
+ .text.InitRCC  0x00000000080031cc      0x1cc Main/scr/sysinit.o
+                0x00000000080031cc                InitRCC
+ .text.NMI_Handler
+                0x0000000008003398       0x2c Main/scr/sysinit.o
+                0x0000000008003398                NMI_Handler
+ .text.InitLedGPIO
+                0x00000000080033c4       0xac Peripheral/src/LED.o
+                0x00000000080033c4                InitLedGPIO
+ .text.SetLED   0x0000000008003470      0x114 Peripheral/src/LED.o
+                0x0000000008003470                SetLED
+ .text.ToggleLED
+                0x0000000008003584       0x78 Peripheral/src/LED.o
+                0x0000000008003584                ToggleLED
+ .text.BlinkLED
+                0x00000000080035fc       0x28 Peripheral/src/LED.o
+                0x00000000080035fc                BlinkLED
+ .text.__NVIC_EnableIRQ
+                0x0000000008003624       0x3c Peripheral/src/UART.o
  .text.InitUSART1
-                0x000000000800350c       0xf0 Peripheral/src/UART.o
-                0x000000000800350c                InitUSART1
- .text.SendUSART1
-                0x00000000080035fc       0x3c Peripheral/src/UART.o
-                0x00000000080035fc                SendUSART1
- .text.SendStringUSART1
-                0x0000000008003638       0x36 Peripheral/src/UART.o
-                0x0000000008003638                SendStringUSART1
- *fill*         0x000000000800366e        0x2 
+                0x0000000008003660       0xf0 Peripheral/src/UART.o
+                0x0000000008003660                InitUSART1
+ .text.InitDMAusart1
+                0x0000000008003750      0x100 Peripheral/src/UART.o
+                0x0000000008003750                InitDMAusart1
+ .text.WriteStrDMAusart1
+                0x0000000008003850       0x5c Peripheral/src/UART.o
+                0x0000000008003850                WriteStrDMAusart1
  .text.USART1_IRQHandler
-                0x0000000008003670       0x2c Peripheral/src/UART.o
-                0x0000000008003670                USART1_IRQHandler
+                0x00000000080038ac       0x2c Peripheral/src/UART.o
+                0x00000000080038ac                USART1_IRQHandler
+ .text.DMA1_CH7_IRQHandler
+                0x00000000080038d8       0x20 Peripheral/src/UART.o
+                0x00000000080038d8                DMA1_CH7_IRQHandler
+ .text.__NVIC_EnableIRQ
+                0x00000000080038f8       0x3c Peripheral/src/fmac.o
+ .text.__NVIC_SetPriority
+                0x0000000008003934       0x54 Peripheral/src/fmac.o
+ .text.InitFmac
+                0x0000000008003988       0x38 Peripheral/src/fmac.o
+                0x0000000008003988                InitFmac
+ .text.ConfigFmacX1buff
+                0x00000000080039c0       0x74 Peripheral/src/fmac.o
+                0x00000000080039c0                ConfigFmacX1buff
+ .text.ConfigFmacX2Buff
+                0x0000000008003a34       0x54 Peripheral/src/fmac.o
+                0x0000000008003a34                ConfigFmacX2Buff
+ .text.ConfigFmacYBuff
+                0x0000000008003a88       0x74 Peripheral/src/fmac.o
+                0x0000000008003a88                ConfigFmacYBuff
+ .text.ConfigFmacRQP
+                0x0000000008003afc       0x50 Peripheral/src/fmac.o
+                0x0000000008003afc                ConfigFmacRQP
+ .text.ExecuteFmacFunction
+                0x0000000008003b4c       0x20 Peripheral/src/fmac.o
+                0x0000000008003b4c                ExecuteFmacFunction
+ .text.WriteFmacData
+                0x0000000008003b6c       0x28 Peripheral/src/fmac.o
+                0x0000000008003b6c                WriteFmacData
+ .text.SelectFmacPreloadFmacX2
+                0x0000000008003b94       0x4c Peripheral/src/fmac.o
+                0x0000000008003b94                SelectFmacPreloadFmacX2
+ .text.SelectFmacIir
+                0x0000000008003be0       0x78 Peripheral/src/fmac.o
+                0x0000000008003be0                SelectFmacIir
+ .text.WriteFmacIirCoefficients
+                0x0000000008003c58       0x84 Peripheral/src/fmac.o
+                0x0000000008003c58                WriteFmacIirCoefficients
  .text.UtoaBuiltinDiv
-                0x000000000800369c       0x68 SW_Fucntions/src/conversions.o
-                0x000000000800369c                UtoaBuiltinDiv
+                0x0000000008003cdc       0x68 SW_Fucntions/src/conversions.o
+                0x0000000008003cdc                UtoaBuiltinDiv
  .text.__libc_init_array
-                0x0000000008003704       0x48 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
-                0x0000000008003704                __libc_init_array
- .text.memcpy   0x000000000800374c       0x16 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memcpy-stub.o)
-                0x000000000800374c                memcpy
- .text.memset   0x0000000008003762       0x10 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
-                0x0000000008003762                memset
+                0x0000000008003d44       0x48 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
+                0x0000000008003d44                __libc_init_array
+ .text.memcpy   0x0000000008003d8c       0x16 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memcpy-stub.o)
+                0x0000000008003d8c                memcpy
+ .text.memset   0x0000000008003da2       0x10 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
+                0x0000000008003da2                memset
  *(.glue_7)
- .glue_7        0x0000000008003772        0x0 linker stubs
+ .glue_7        0x0000000008003db2        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0000000008003772        0x0 linker stubs
+ .glue_7t       0x0000000008003db2        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x0000000008003772        0x2 
- .eh_frame      0x0000000008003774        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ *fill*         0x0000000008003db2        0x2 
+ .eh_frame      0x0000000008003db4        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
  *(.init)
- .init          0x0000000008003774        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x0000000008003774                _init
- .init          0x0000000008003778        0x8 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ .init          0x0000000008003db4        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0000000008003db4                _init
+ .init          0x0000000008003db8        0x8 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
  *(.fini)
- .fini          0x0000000008003780        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x0000000008003780                _fini
- .fini          0x0000000008003784        0x8 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
-                0x000000000800378c                . = ALIGN (0x4)
-                0x000000000800378c                _etext = .
+ .fini          0x0000000008003dc0        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0000000008003dc0                _fini
+ .fini          0x0000000008003dc4        0x8 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+                0x0000000008003dcc                . = ALIGN (0x4)
+                0x0000000008003dcc                _etext = .
 
-.vfp11_veneer   0x000000000800378c        0x0
- .vfp11_veneer  0x000000000800378c        0x0 linker stubs
+.vfp11_veneer   0x0000000008003dcc        0x0
+ .vfp11_veneer  0x0000000008003dcc        0x0 linker stubs
 
-.v4_bx          0x000000000800378c        0x0
- .v4_bx         0x000000000800378c        0x0 linker stubs
+.v4_bx          0x0000000008003dcc        0x0
+ .v4_bx         0x0000000008003dcc        0x0 linker stubs
 
-.iplt           0x000000000800378c        0x0
- .iplt          0x000000000800378c        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.iplt           0x0000000008003dcc        0x0
+ .iplt          0x0000000008003dcc        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.rodata         0x000000000800378c       0xbc
-                0x000000000800378c                . = ALIGN (0x4)
+.rodata         0x0000000008003dcc       0xb4
+                0x0000000008003dcc                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x000000000800378c       0x17 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- *fill*         0x00000000080037a3        0x1 
- .rodata        0x00000000080037a4        0xd FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- *fill*         0x00000000080037b1        0x3 
- .rodata        0x00000000080037b4       0x92 Main/scr/main.o
+ .rodata        0x0000000008003dcc       0x17 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ *fill*         0x0000000008003de3        0x1 
+ .rodata        0x0000000008003de4        0xd FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ *fill*         0x0000000008003df1        0x3 
+ .rodata        0x0000000008003df4       0x7d Main/scr/main.o
+ *fill*         0x0000000008003e71        0x3 
+ .rodata        0x0000000008003e74        0xa Peripheral/src/UART.o
  *(.rodata*)
-                0x0000000008003848                . = ALIGN (0x4)
- *fill*         0x0000000008003846        0x2 
+                0x0000000008003e80                . = ALIGN (0x4)
+ *fill*         0x0000000008003e7e        0x2 
 
-.rel.dyn        0x0000000008003848        0x0
- .rel.iplt      0x0000000008003848        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.rel.dyn        0x0000000008003e80        0x0
+ .rel.iplt      0x0000000008003e80        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.ARM.extab      0x0000000008003848        0x0
-                0x0000000008003848                . = ALIGN (0x4)
+.ARM.extab      0x0000000008003e80        0x0
+                0x0000000008003e80                . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000000008003848                . = ALIGN (0x4)
+                0x0000000008003e80                . = ALIGN (0x4)
 
-.ARM            0x0000000008003848        0x0
-                0x0000000008003848                . = ALIGN (0x4)
-                0x0000000008003848                __exidx_start = .
+.ARM            0x0000000008003e80        0x0
+                0x0000000008003e80                . = ALIGN (0x4)
+                0x0000000008003e80                __exidx_start = .
  *(.ARM.exidx*)
-                0x0000000008003848                __exidx_end = .
-                0x0000000008003848                . = ALIGN (0x4)
+                0x0000000008003e80                __exidx_end = .
+                0x0000000008003e80                . = ALIGN (0x4)
 
-.preinit_array  0x0000000008003848        0x0
-                0x0000000008003848                . = ALIGN (0x4)
-                0x0000000008003848                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x0000000008003e80        0x0
+                0x0000000008003e80                . = ALIGN (0x4)
+                0x0000000008003e80                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0000000008003848                PROVIDE (__preinit_array_end = .)
-                0x0000000008003848                . = ALIGN (0x4)
+                0x0000000008003e80                PROVIDE (__preinit_array_end = .)
+                0x0000000008003e80                . = ALIGN (0x4)
 
-.init_array     0x0000000008003848        0x4
-                0x0000000008003848                . = ALIGN (0x4)
-                0x0000000008003848                PROVIDE (__init_array_start = .)
+.init_array     0x0000000008003e80        0x4
+                0x0000000008003e80                . = ALIGN (0x4)
+                0x0000000008003e80                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0000000008003848        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
-                0x000000000800384c                PROVIDE (__init_array_end = .)
-                0x000000000800384c                . = ALIGN (0x4)
+ .init_array    0x0000000008003e80        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+                0x0000000008003e84                PROVIDE (__init_array_end = .)
+                0x0000000008003e84                . = ALIGN (0x4)
 
-.fini_array     0x000000000800384c        0x4
-                0x000000000800384c                . = ALIGN (0x4)
+.fini_array     0x0000000008003e84        0x4
+                0x0000000008003e84                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x000000000800384c        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .fini_array    0x0000000008003e84        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x0000000008003850                . = ALIGN (0x4)
-                0x0000000008003850                _sidata = LOADADDR (.data)
+                0x0000000008003e88                . = ALIGN (0x4)
+                0x0000000008003e88                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000        0xc load address 0x0000000008003850
+.data           0x0000000020000000       0x14 load address 0x0000000008003e88
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
  *(.data*)
  .data.uxCriticalNesting
                 0x0000000020000000        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- .data.buffer   0x0000000020000004        0x7 Main/scr/main.o
-                0x0000000020000004                buffer
-                0x000000002000000c                . = ALIGN (0x4)
- *fill*         0x000000002000000b        0x1 
-                0x000000002000000c                _edata = .
+ .data.coeff_a  0x0000000020000004        0x6 Main/scr/main.o
+                0x0000000020000004                coeff_a
+ *fill*         0x000000002000000a        0x2 
+ .data.coeff_b  0x000000002000000c        0x6 Main/scr/main.o
+                0x000000002000000c                coeff_b
+ .data.coeff_gain
+                0x0000000020000012        0x1 Main/scr/main.o
+                0x0000000020000012                coeff_gain
+                0x0000000020000014                . = ALIGN (0x4)
+ *fill*         0x0000000020000013        0x1 
+                0x0000000020000014                _edata = .
 
-.igot.plt       0x000000002000000c        0x0 load address 0x000000000800385c
- .igot.plt      0x000000002000000c        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
-                0x000000002000000c                . = ALIGN (0x4)
+.igot.plt       0x0000000020000014        0x0 load address 0x0000000008003e9c
+ .igot.plt      0x0000000020000014        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+                0x0000000020000014                . = ALIGN (0x4)
 
-.bss            0x000000002000000c     0xc9e0 load address 0x000000000800385c
-                0x000000002000000c                _sbss = .
-                0x000000002000000c                __bss_start__ = _sbss
+.bss            0x0000000020000014     0xc9dc load address 0x0000000008003e9c
+                0x0000000020000014                _sbss = .
+                0x0000000020000014                __bss_start__ = _sbss
  *(.bss)
- .bss           0x000000002000000c       0x1c c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .bss           0x0000000020000014       0x1c c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
  *(.bss*)
  .bss.ucMaxSysCallPriority
-                0x0000000020000028        0x1 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- *fill*         0x0000000020000029        0x3 
+                0x0000000020000030        0x1 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ *fill*         0x0000000020000031        0x3 
  .bss.ulMaxPRIGROUPValue
-                0x000000002000002c        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000020000034        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
  .bss.pxCurrentTCB
-                0x0000000020000030        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
-                0x0000000020000030                pxCurrentTCB
+                0x0000000020000038        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000020000038                pxCurrentTCB
  .bss.pxReadyTasksLists
-                0x0000000020000034       0x64 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x000000002000003c       0x64 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.xDelayedTaskList1
-                0x0000000020000098       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000200000a0       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.xDelayedTaskList2
-                0x00000000200000ac       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000200000b4       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.pxDelayedTaskList
-                0x00000000200000c0        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000200000c8        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.pxOverflowDelayedTaskList
-                0x00000000200000c4        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000200000cc        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.xPendingReadyList
-                0x00000000200000c8       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000200000d0       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.xTasksWaitingTermination
-                0x00000000200000dc       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000200000e4       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.uxDeletedTasksWaitingCleanUp
-                0x00000000200000f0        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000200000f8        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.xSuspendedTaskList
-                0x00000000200000f4       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x00000000200000fc       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.uxCurrentNumberOfTasks
-                0x0000000020000108        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.xTickCount
-                0x000000002000010c        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.uxTopReadyPriority
                 0x0000000020000110        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.xSchedulerRunning
+ .bss.xTickCount
                 0x0000000020000114        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.xPendedTicks
+ .bss.uxTopReadyPriority
                 0x0000000020000118        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.xYieldPending
+ .bss.xSchedulerRunning
                 0x000000002000011c        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.xNumOfOverflows
+ .bss.xPendedTicks
                 0x0000000020000120        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.uxTaskNumber
+ .bss.xYieldPending
                 0x0000000020000124        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.xNextTaskUnblockTime
+ .bss.xNumOfOverflows
                 0x0000000020000128        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.xIdleTaskHandle
+ .bss.uxTaskNumber
                 0x000000002000012c        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .bss.uxSchedulerSuspended
+ .bss.xNextTaskUnblockTime
                 0x0000000020000130        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .bss.xIdleTaskHandle
+                0x0000000020000134        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .bss.uxSchedulerSuspended
+                0x0000000020000138        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .bss.xActiveTimerList1
-                0x0000000020000134       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+                0x000000002000013c       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
  .bss.xActiveTimerList2
-                0x0000000020000148       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+                0x0000000020000150       0x14 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
  .bss.pxCurrentTimerList
-                0x000000002000015c        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .bss.pxOverflowTimerList
-                0x0000000020000160        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .bss.xTimerQueue
                 0x0000000020000164        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .bss.xTimerTaskHandle
+ .bss.pxOverflowTimerList
                 0x0000000020000168        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .bss.xLastTime.6727
+ .bss.xTimerQueue
                 0x000000002000016c        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .bss.ucHeap    0x0000000020000170     0xc800 FreeRTOS_Source/portable/MemMang/heap_1.o
+ .bss.xTimerTaskHandle
+                0x0000000020000170        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .bss.xLastTime.6727
+                0x0000000020000174        0x4 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .bss.ucHeap    0x0000000020000178     0xc800 FreeRTOS_Source/portable/MemMang/heap_1.o
  .bss.xNextFreeByte
-                0x000000002000c970        0x4 FreeRTOS_Source/portable/MemMang/heap_1.o
+                0x000000002000c978        0x4 FreeRTOS_Source/portable/MemMang/heap_1.o
  .bss.pucAlignedHeap.6404
-                0x000000002000c974        0x4 FreeRTOS_Source/portable/MemMang/heap_1.o
- .bss.adcResultStr.7572
-                0x000000002000c978        0x4 Main/scr/main.o
- .bss.VoltageStr.7573
-                0x000000002000c97c        0x4 Main/scr/main.o
- .bss.TemperatureStr.7574
+                0x000000002000c97c        0x4 FreeRTOS_Source/portable/MemMang/heap_1.o
+ .bss.adcResultStr.7642
                 0x000000002000c980        0x4 Main/scr/main.o
- .bss.adcResultStr.7582
-                0x000000002000c984        0x5 Main/scr/main.o
+ .bss.fmacResultStr.7643
+                0x000000002000c984        0x4 Main/scr/main.o
+ .bss.temp.7655
+                0x000000002000c988        0x2 Main/scr/main.o
  *(COMMON)
- *fill*         0x000000002000c989        0x3 
+ *fill*         0x000000002000c98a        0x2 
  COMMON         0x000000002000c98c       0x50 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
                 0x000000002000c98c                xQueueRegistry
- COMMON         0x000000002000c9dc       0x10 Main/scr/main.o
+ COMMON         0x000000002000c9dc       0x14 Main/scr/main.o
                 0x000000002000c9dc                TaskConvADCHandle
-                0x000000002000c9e0                SendDataADC
-                0x000000002000c9e4                TaskSendUSARTHandle
-                0x000000002000c9e8                TaskLEDHandle
-                0x000000002000c9ec                . = ALIGN (0x4)
-                0x000000002000c9ec                _ebss = .
-                0x000000002000c9ec                __bss_end__ = _ebss
+                0x000000002000c9e0                SendDataFMAC
+                0x000000002000c9e4                SendDataADC
+                0x000000002000c9e8                TaskSendUSARTHandle
+                0x000000002000c9ec                TaskLEDHandle
+                0x000000002000c9f0                . = ALIGN (0x4)
+                0x000000002000c9f0                _ebss = .
+                0x000000002000c9f0                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x000000002000c9ec      0x604 load address 0x000000000800385c
+                0x000000002000c9f0      0x600 load address 0x0000000008003e9c
                 0x000000002000c9f0                . = ALIGN (0x8)
- *fill*         0x000000002000c9ec        0x4 
                 [!provide]                        PROVIDE (end = .)
                 0x000000002000c9f0                PROVIDE (_end = .)
                 0x000000002000cbf0                . = (. + _Min_Heap_Size)
@@ -2314,106 +2394,115 @@ LOAD c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .ARM.attributes
                 0x000000000000035c       0x39 Peripheral/src/UART.o
  .ARM.attributes
-                0x0000000000000395       0x39 SW_Fucntions/src/conversions.o
+                0x0000000000000395       0x39 Peripheral/src/fmac.o
  .ARM.attributes
-                0x00000000000003ce       0x34 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
+                0x00000000000003ce       0x39 SW_Fucntions/src/conversions.o
  .ARM.attributes
-                0x0000000000000402       0x34 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memcpy-stub.o)
+                0x0000000000000407       0x34 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
  .ARM.attributes
-                0x0000000000000436       0x34 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
+                0x000000000000043b       0x34 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memcpy-stub.o)
  .ARM.attributes
-                0x000000000000046a       0x22 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+                0x000000000000046f       0x34 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
+ .ARM.attributes
+                0x00000000000004a3       0x1b c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strlen.o)
+ .ARM.attributes
+                0x00000000000004be       0x22 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
 OUTPUT(ESC_firmware.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000     0xa4d7
- .debug_info    0x0000000000000000      0x677 Analog/src/adc.o
- .debug_info    0x0000000000000677      0x4c6 Analog/src/opamp.o
- .debug_info    0x0000000000000b3d      0x376 Analog/src/vrefbuf.o
- .debug_info    0x0000000000000eb3      0x56d CMSIS/src/system_stm32g4xx.o
- .debug_info    0x0000000000001420      0xac0 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
- .debug_info    0x0000000000001ee0      0x528 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- .debug_info    0x0000000000002408     0x1d3f FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .debug_info    0x0000000000004147     0x27ad FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .debug_info    0x00000000000068f4     0x14be FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .debug_info    0x0000000000007db2      0x9ca FreeRTOS_Source/portable/MemMang/heap_1.o
- .debug_info    0x000000000000877c       0x22 Main/Startup/startup_stm32g473cetx.o
- .debug_info    0x000000000000879e      0x73b Main/scr/main.o
- .debug_info    0x0000000000008ed9      0x6ac Main/scr/sysinit.o
- .debug_info    0x0000000000009585      0x4e4 Peripheral/src/LED.o
- .debug_info    0x0000000000009a69      0x902 Peripheral/src/UART.o
- .debug_info    0x000000000000a36b      0x16c SW_Fucntions/src/conversions.o
+.debug_info     0x0000000000000000     0xb9c4
+ .debug_info    0x0000000000000000      0xdae Analog/src/adc.o
+ .debug_info    0x0000000000000dae      0x4c6 Analog/src/opamp.o
+ .debug_info    0x0000000000001274      0x376 Analog/src/vrefbuf.o
+ .debug_info    0x00000000000015ea      0x56d CMSIS/src/system_stm32g4xx.o
+ .debug_info    0x0000000000001b57      0xac0 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+ .debug_info    0x0000000000002617      0x528 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ .debug_info    0x0000000000002b3f     0x1d3f FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .debug_info    0x000000000000487e     0x27ad FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .debug_info    0x000000000000702b     0x14be FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .debug_info    0x00000000000084e9      0x9ca FreeRTOS_Source/portable/MemMang/heap_1.o
+ .debug_info    0x0000000000008eb3       0x22 Main/Startup/startup_stm32g473cetx.o
+ .debug_info    0x0000000000008ed5      0x60e Main/scr/main.o
+ .debug_info    0x00000000000094e3      0x6ac Main/scr/sysinit.o
+ .debug_info    0x0000000000009b8f      0x4e4 Peripheral/src/LED.o
+ .debug_info    0x000000000000a073      0xa72 Peripheral/src/UART.o
+ .debug_info    0x000000000000aae5      0xd73 Peripheral/src/fmac.o
+ .debug_info    0x000000000000b858      0x16c SW_Fucntions/src/conversions.o
 
-.debug_abbrev   0x0000000000000000     0x198b
- .debug_abbrev  0x0000000000000000      0x120 Analog/src/adc.o
- .debug_abbrev  0x0000000000000120       0xf5 Analog/src/opamp.o
- .debug_abbrev  0x0000000000000215       0xcc Analog/src/vrefbuf.o
- .debug_abbrev  0x00000000000002e1      0x111 CMSIS/src/system_stm32g4xx.o
- .debug_abbrev  0x00000000000003f2      0x1cf FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
- .debug_abbrev  0x00000000000005c1      0x1ff FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- .debug_abbrev  0x00000000000007c0      0x2d7 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .debug_abbrev  0x0000000000000a97      0x34e FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .debug_abbrev  0x0000000000000de5      0x2c8 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .debug_abbrev  0x00000000000010ad      0x237 FreeRTOS_Source/portable/MemMang/heap_1.o
- .debug_abbrev  0x00000000000012e4       0x12 Main/Startup/startup_stm32g473cetx.o
- .debug_abbrev  0x00000000000012f6      0x18c Main/scr/main.o
- .debug_abbrev  0x0000000000001482      0x138 Main/scr/sysinit.o
- .debug_abbrev  0x00000000000015ba      0x157 Peripheral/src/LED.o
- .debug_abbrev  0x0000000000001711      0x1ca Peripheral/src/UART.o
- .debug_abbrev  0x00000000000018db       0xb0 SW_Fucntions/src/conversions.o
+.debug_abbrev   0x0000000000000000     0x1c4a
+ .debug_abbrev  0x0000000000000000      0x19c Analog/src/adc.o
+ .debug_abbrev  0x000000000000019c       0xf5 Analog/src/opamp.o
+ .debug_abbrev  0x0000000000000291       0xcc Analog/src/vrefbuf.o
+ .debug_abbrev  0x000000000000035d      0x111 CMSIS/src/system_stm32g4xx.o
+ .debug_abbrev  0x000000000000046e      0x1cf FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+ .debug_abbrev  0x000000000000063d      0x1ff FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ .debug_abbrev  0x000000000000083c      0x2d7 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .debug_abbrev  0x0000000000000b13      0x34e FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .debug_abbrev  0x0000000000000e61      0x2c8 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .debug_abbrev  0x0000000000001129      0x237 FreeRTOS_Source/portable/MemMang/heap_1.o
+ .debug_abbrev  0x0000000000001360       0x12 Main/Startup/startup_stm32g473cetx.o
+ .debug_abbrev  0x0000000000001372      0x1aa Main/scr/main.o
+ .debug_abbrev  0x000000000000151c      0x138 Main/scr/sysinit.o
+ .debug_abbrev  0x0000000000001654      0x157 Peripheral/src/LED.o
+ .debug_abbrev  0x00000000000017ab      0x1f3 Peripheral/src/UART.o
+ .debug_abbrev  0x000000000000199e      0x1fc Peripheral/src/fmac.o
+ .debug_abbrev  0x0000000000001b9a       0xb0 SW_Fucntions/src/conversions.o
 
-.debug_aranges  0x0000000000000000      0x6b0
+.debug_aranges  0x0000000000000000      0x780
  .debug_aranges
-                0x0000000000000000       0x28 Analog/src/adc.o
+                0x0000000000000000       0x30 Analog/src/adc.o
  .debug_aranges
-                0x0000000000000028       0x30 Analog/src/opamp.o
+                0x0000000000000030       0x30 Analog/src/opamp.o
  .debug_aranges
-                0x0000000000000058       0x20 Analog/src/vrefbuf.o
+                0x0000000000000060       0x20 Analog/src/vrefbuf.o
  .debug_aranges
-                0x0000000000000078       0x28 CMSIS/src/system_stm32g4xx.o
+                0x0000000000000080       0x28 CMSIS/src/system_stm32g4xx.o
  .debug_aranges
-                0x00000000000000a0       0x40 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+                0x00000000000000a8       0x40 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
  .debug_aranges
-                0x00000000000000e0       0x80 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+                0x00000000000000e8       0x80 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
  .debug_aranges
-                0x0000000000000160      0x100 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+                0x0000000000000168      0x100 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
  .debug_aranges
-                0x0000000000000260      0x1e0 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+                0x0000000000000268      0x1e0 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
  .debug_aranges
-                0x0000000000000440       0xd8 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+                0x0000000000000448       0xd8 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
  .debug_aranges
-                0x0000000000000518       0x38 FreeRTOS_Source/portable/MemMang/heap_1.o
+                0x0000000000000520       0x38 FreeRTOS_Source/portable/MemMang/heap_1.o
  .debug_aranges
-                0x0000000000000550       0x28 Main/Startup/startup_stm32g473cetx.o
+                0x0000000000000558       0x28 Main/Startup/startup_stm32g473cetx.o
  .debug_aranges
-                0x0000000000000578       0x48 Main/scr/main.o
+                0x0000000000000580       0x40 Main/scr/main.o
  .debug_aranges
                 0x00000000000005c0       0x50 Main/scr/sysinit.o
  .debug_aranges
                 0x0000000000000610       0x38 Peripheral/src/LED.o
  .debug_aranges
-                0x0000000000000648       0x48 Peripheral/src/UART.o
+                0x0000000000000648       0x68 Peripheral/src/UART.o
  .debug_aranges
-                0x0000000000000690       0x20 SW_Fucntions/src/conversions.o
+                0x00000000000006b0       0xb0 Peripheral/src/fmac.o
+ .debug_aranges
+                0x0000000000000760       0x20 SW_Fucntions/src/conversions.o
 
-.debug_ranges   0x0000000000000000      0x5b8
- .debug_ranges  0x0000000000000000       0x18 Analog/src/adc.o
- .debug_ranges  0x0000000000000018       0x20 Analog/src/opamp.o
- .debug_ranges  0x0000000000000038       0x10 Analog/src/vrefbuf.o
- .debug_ranges  0x0000000000000048       0x18 CMSIS/src/system_stm32g4xx.o
- .debug_ranges  0x0000000000000060       0x30 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
- .debug_ranges  0x0000000000000090       0x70 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- .debug_ranges  0x0000000000000100       0xf0 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .debug_ranges  0x00000000000001f0      0x1d0 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .debug_ranges  0x00000000000003c0       0xc8 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .debug_ranges  0x0000000000000488       0x28 FreeRTOS_Source/portable/MemMang/heap_1.o
- .debug_ranges  0x00000000000004b0       0x20 Main/Startup/startup_stm32g473cetx.o
- .debug_ranges  0x00000000000004d0       0x38 Main/scr/main.o
+.debug_ranges   0x0000000000000000      0x678
+ .debug_ranges  0x0000000000000000       0x20 Analog/src/adc.o
+ .debug_ranges  0x0000000000000020       0x20 Analog/src/opamp.o
+ .debug_ranges  0x0000000000000040       0x10 Analog/src/vrefbuf.o
+ .debug_ranges  0x0000000000000050       0x18 CMSIS/src/system_stm32g4xx.o
+ .debug_ranges  0x0000000000000068       0x30 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+ .debug_ranges  0x0000000000000098       0x70 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ .debug_ranges  0x0000000000000108       0xf0 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .debug_ranges  0x00000000000001f8      0x1d0 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .debug_ranges  0x00000000000003c8       0xc8 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .debug_ranges  0x0000000000000490       0x28 FreeRTOS_Source/portable/MemMang/heap_1.o
+ .debug_ranges  0x00000000000004b8       0x20 Main/Startup/startup_stm32g473cetx.o
+ .debug_ranges  0x00000000000004d8       0x30 Main/scr/main.o
  .debug_ranges  0x0000000000000508       0x40 Main/scr/sysinit.o
  .debug_ranges  0x0000000000000548       0x28 Peripheral/src/LED.o
- .debug_ranges  0x0000000000000570       0x38 Peripheral/src/UART.o
- .debug_ranges  0x00000000000005a8       0x10 SW_Fucntions/src/conversions.o
+ .debug_ranges  0x0000000000000570       0x58 Peripheral/src/UART.o
+ .debug_ranges  0x00000000000005c8       0xa0 Peripheral/src/fmac.o
+ .debug_ranges  0x0000000000000668       0x10 SW_Fucntions/src/conversions.o
 
-.debug_macro    0x0000000000000000    0x16d13
+.debug_macro    0x0000000000000000    0x16e08
  .debug_macro   0x0000000000000000       0xd1 Analog/src/adc.o
  .debug_macro   0x00000000000000d1      0xa60 Analog/src/adc.o
  .debug_macro   0x0000000000000b31       0x2e Analog/src/adc.o
@@ -2459,65 +2548,70 @@ OUTPUT(ESC_firmware.elf elf32-littlearm)
  .debug_macro   0x00000000000162f4      0x1cf FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
  .debug_macro   0x00000000000164c3       0x97 FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
  .debug_macro   0x000000000001655a      0x19b FreeRTOS_Source/portable/MemMang/heap_1.o
- .debug_macro   0x00000000000166f5      0x173 Main/scr/main.o
- .debug_macro   0x0000000000016868      0x130 Main/scr/main.o
- .debug_macro   0x0000000000016998       0x10 Main/scr/main.o
- .debug_macro   0x00000000000169a8       0x22 Main/scr/main.o
- .debug_macro   0x00000000000169ca       0xd6 Main/scr/sysinit.o
- .debug_macro   0x0000000000016aa0       0xd1 Peripheral/src/LED.o
- .debug_macro   0x0000000000016b71       0xd1 Peripheral/src/UART.o
- .debug_macro   0x0000000000016c42       0xd1 SW_Fucntions/src/conversions.o
+ .debug_macro   0x00000000000166f5      0x17c Main/scr/main.o
+ .debug_macro   0x0000000000016871      0x130 Main/scr/main.o
+ .debug_macro   0x00000000000169a1       0x22 Main/scr/main.o
+ .debug_macro   0x00000000000169c3       0x10 Main/scr/main.o
+ .debug_macro   0x00000000000169d3       0x16 Main/scr/main.o
+ .debug_macro   0x00000000000169e9       0xd6 Main/scr/sysinit.o
+ .debug_macro   0x0000000000016abf       0xd1 Peripheral/src/LED.o
+ .debug_macro   0x0000000000016b90       0xd1 Peripheral/src/UART.o
+ .debug_macro   0x0000000000016c61       0xd6 Peripheral/src/fmac.o
+ .debug_macro   0x0000000000016d37       0xd1 SW_Fucntions/src/conversions.o
 
-.debug_line     0x0000000000000000     0x6ea3
- .debug_line    0x0000000000000000      0x4c6 Analog/src/adc.o
- .debug_line    0x00000000000004c6      0x54e Analog/src/opamp.o
- .debug_line    0x0000000000000a14      0x49a Analog/src/vrefbuf.o
- .debug_line    0x0000000000000eae      0x479 CMSIS/src/system_stm32g4xx.o
- .debug_line    0x0000000000001327      0x632 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
- .debug_line    0x0000000000001959      0x693 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- .debug_line    0x0000000000001fec      0xee6 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .debug_line    0x0000000000002ed2     0x1430 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .debug_line    0x0000000000004302      0x9cf FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .debug_line    0x0000000000004cd1      0x626 FreeRTOS_Source/portable/MemMang/heap_1.o
- .debug_line    0x00000000000052f7       0x89 Main/Startup/startup_stm32g473cetx.o
- .debug_line    0x0000000000005380      0x6cf Main/scr/main.o
- .debug_line    0x0000000000005a4f      0x550 Main/scr/sysinit.o
- .debug_line    0x0000000000005f9f      0x532 Peripheral/src/LED.o
- .debug_line    0x00000000000064d1      0x51d Peripheral/src/UART.o
- .debug_line    0x00000000000069ee      0x4b5 SW_Fucntions/src/conversions.o
+.debug_line     0x0000000000000000     0x759f
+ .debug_line    0x0000000000000000      0x4df Analog/src/adc.o
+ .debug_line    0x00000000000004df      0x566 Analog/src/opamp.o
+ .debug_line    0x0000000000000a45      0x49a Analog/src/vrefbuf.o
+ .debug_line    0x0000000000000edf      0x479 CMSIS/src/system_stm32g4xx.o
+ .debug_line    0x0000000000001358      0x632 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+ .debug_line    0x000000000000198a      0x693 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ .debug_line    0x000000000000201d      0xee6 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .debug_line    0x0000000000002f03     0x1430 FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .debug_line    0x0000000000004333      0x9cf FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .debug_line    0x0000000000004d02      0x626 FreeRTOS_Source/portable/MemMang/heap_1.o
+ .debug_line    0x0000000000005328       0x89 Main/Startup/startup_stm32g473cetx.o
+ .debug_line    0x00000000000053b1      0x6b5 Main/scr/main.o
+ .debug_line    0x0000000000005a66      0x552 Main/scr/sysinit.o
+ .debug_line    0x0000000000005fb8      0x532 Peripheral/src/LED.o
+ .debug_line    0x00000000000064ea      0x5a6 Peripheral/src/UART.o
+ .debug_line    0x0000000000006a90      0x65a Peripheral/src/fmac.o
+ .debug_line    0x00000000000070ea      0x4b5 SW_Fucntions/src/conversions.o
 
-.debug_str      0x0000000000000000    0x88431
- .debug_str     0x0000000000000000    0x7b106 Analog/src/adc.o
-                                      0x7b2bd (size before relaxing)
- .debug_str     0x000000000007b106       0x58 Analog/src/opamp.o
+.debug_str      0x0000000000000000    0x8880c
+ .debug_str     0x0000000000000000    0x7b787 Analog/src/adc.o
+                                      0x7b967 (size before relaxing)
+ .debug_str     0x000000000007b787       0x58 Analog/src/opamp.o
                                       0x7b236 (size before relaxing)
- .debug_str     0x000000000007b15e       0x34 Analog/src/vrefbuf.o
+ .debug_str     0x000000000007b7df       0x34 Analog/src/vrefbuf.o
                                       0x7b1da (size before relaxing)
- .debug_str     0x000000000007b192       0xef CMSIS/src/system_stm32g4xx.o
+ .debug_str     0x000000000007b813       0x9b CMSIS/src/system_stm32g4xx.o
                                       0x7b295 (size before relaxing)
- .debug_str     0x000000000007b281     0x6b75 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+ .debug_str     0x000000000007b8ae     0x6b6d FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
                                        0xa873 (size before relaxing)
- .debug_str     0x0000000000081df6     0x1a1e FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ .debug_str     0x000000000008241b     0x1a1e FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
                                        0x912e (size before relaxing)
- .debug_str     0x0000000000083814      0xf34 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .debug_str     0x0000000000083e39      0xf34 FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
                                        0xc995 (size before relaxing)
- .debug_str     0x0000000000084748     0x2c5d FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .debug_str     0x0000000000084d6d     0x2c5d FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
                                        0xe87a (size before relaxing)
- .debug_str     0x00000000000873a5      0x52f FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .debug_str     0x00000000000879ca      0x52f FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
                                        0xcea4 (size before relaxing)
- .debug_str     0x00000000000878d4       0xe7 FreeRTOS_Source/portable/MemMang/heap_1.o
+ .debug_str     0x0000000000087ef9       0xe7 FreeRTOS_Source/portable/MemMang/heap_1.o
                                        0xba03 (size before relaxing)
- .debug_str     0x00000000000879bb       0x36 Main/Startup/startup_stm32g473cetx.o
+ .debug_str     0x0000000000087fe0       0x36 Main/Startup/startup_stm32g473cetx.o
                                          0x6b (size before relaxing)
- .debug_str     0x00000000000879f1      0x252 Main/scr/main.o
-                                      0x807ea (size before relaxing)
- .debug_str     0x0000000000087c43      0x146 Main/scr/sysinit.o
+ .debug_str     0x0000000000088016      0x320 Main/scr/main.o
+                                      0x8085c (size before relaxing)
+ .debug_str     0x0000000000088336      0x146 Main/scr/sysinit.o
                                       0x7b365 (size before relaxing)
- .debug_str     0x0000000000087d89       0x54 Peripheral/src/LED.o
+ .debug_str     0x000000000008847c       0x54 Peripheral/src/LED.o
                                       0x7b26f (size before relaxing)
- .debug_str     0x0000000000087ddd      0x632 Peripheral/src/UART.o
-                                      0x7b843 (size before relaxing)
- .debug_str     0x000000000008840f       0x22 SW_Fucntions/src/conversions.o
+ .debug_str     0x00000000000884d0      0x119 Peripheral/src/UART.o
+                                      0x7b8f6 (size before relaxing)
+ .debug_str     0x00000000000885e9      0x1fa Peripheral/src/fmac.o
+                                      0x7bb8a (size before relaxing)
+ .debug_str     0x00000000000887e3       0x29 SW_Fucntions/src/conversions.o
                                       0x7b0a6 (size before relaxing)
 
 .comment        0x0000000000000000       0x7b
@@ -2536,24 +2630,26 @@ OUTPUT(ESC_firmware.elf elf32-littlearm)
  .comment       0x000000000000007b       0x7c Main/scr/sysinit.o
  .comment       0x000000000000007b       0x7c Peripheral/src/LED.o
  .comment       0x000000000000007b       0x7c Peripheral/src/UART.o
+ .comment       0x000000000000007b       0x7c Peripheral/src/fmac.o
  .comment       0x000000000000007b       0x7c SW_Fucntions/src/conversions.o
 
-.debug_frame    0x0000000000000000     0x1898
- .debug_frame   0x0000000000000000       0x58 Analog/src/adc.o
- .debug_frame   0x0000000000000058       0x88 Analog/src/opamp.o
- .debug_frame   0x00000000000000e0       0x30 Analog/src/vrefbuf.o
- .debug_frame   0x0000000000000110       0x58 CMSIS/src/system_stm32g4xx.o
- .debug_frame   0x0000000000000168       0xd8 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
- .debug_frame   0x0000000000000240      0x1a8 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
- .debug_frame   0x00000000000003e8      0x44c FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
- .debug_frame   0x0000000000000834      0x82c FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
- .debug_frame   0x0000000000001060      0x38c FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
- .debug_frame   0x00000000000013ec       0x9c FreeRTOS_Source/portable/MemMang/heap_1.o
- .debug_frame   0x0000000000001488       0xd0 Main/scr/main.o
- .debug_frame   0x0000000000001558      0x108 Main/scr/sysinit.o
- .debug_frame   0x0000000000001660       0xa4 Peripheral/src/LED.o
- .debug_frame   0x0000000000001704       0xe8 Peripheral/src/UART.o
- .debug_frame   0x00000000000017ec       0x38 SW_Fucntions/src/conversions.o
- .debug_frame   0x0000000000001824       0x2c c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
- .debug_frame   0x0000000000001850       0x28 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x0000000000001878       0x20 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
+.debug_frame    0x0000000000000000     0x1c00
+ .debug_frame   0x0000000000000000       0x84 Analog/src/adc.o
+ .debug_frame   0x0000000000000084       0x88 Analog/src/opamp.o
+ .debug_frame   0x000000000000010c       0x30 Analog/src/vrefbuf.o
+ .debug_frame   0x000000000000013c       0x58 CMSIS/src/system_stm32g4xx.o
+ .debug_frame   0x0000000000000194       0xd8 FreeRTOS_Source/portable/GCC/ARM_CM4F/list.o
+ .debug_frame   0x000000000000026c      0x1a8 FreeRTOS_Source/portable/GCC/ARM_CM4F/port.o
+ .debug_frame   0x0000000000000414      0x44c FreeRTOS_Source/portable/GCC/ARM_CM4F/queue.o
+ .debug_frame   0x0000000000000860      0x82c FreeRTOS_Source/portable/GCC/ARM_CM4F/tasks.o
+ .debug_frame   0x000000000000108c      0x38c FreeRTOS_Source/portable/GCC/ARM_CM4F/timers.o
+ .debug_frame   0x0000000000001418       0x9c FreeRTOS_Source/portable/MemMang/heap_1.o
+ .debug_frame   0x00000000000014b4       0xb0 Main/scr/main.o
+ .debug_frame   0x0000000000001564      0x108 Main/scr/sysinit.o
+ .debug_frame   0x000000000000166c       0xa4 Peripheral/src/LED.o
+ .debug_frame   0x0000000000001710      0x17c Peripheral/src/UART.o
+ .debug_frame   0x000000000000188c      0x2c8 Peripheral/src/fmac.o
+ .debug_frame   0x0000000000001b54       0x38 SW_Fucntions/src/conversions.o
+ .debug_frame   0x0000000000001b8c       0x2c c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
+ .debug_frame   0x0000000000001bb8       0x28 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x0000000000001be0       0x20 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)

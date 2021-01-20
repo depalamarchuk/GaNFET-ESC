@@ -1,2 +1,3 @@
+core_cm4.h:1679:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
+core_cm4.h:1809:22:__NVIC_SetPriority	16	static
 adc.c:7:6:InitADC12	16	static
-adc.c:83:10:StartConvADC	4	static

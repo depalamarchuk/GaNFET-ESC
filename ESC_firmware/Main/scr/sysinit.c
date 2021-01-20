@@ -55,7 +55,7 @@ void InitRCC (void){
 	while((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS) {} 				// wait till PLL is used
 
 	//waiting for at least 1us
-	while (!(ticks = 200))
+	while (!(ticks == 200))
 	{
 		ticks++;
 	}

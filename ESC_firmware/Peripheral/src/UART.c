@@ -66,10 +66,76 @@ void SendDataUSART1 (uint8_t data){
 	USART1	->TDR 		= data;
 }
 
-void USART1_IRQHandler (void){
+void InitDMAusart1 (void)
+{
+	char init[]			= "DMA1 init";
+
+	RCC					-> AHB1ENR	|= RCC_AHB1ENR_DMA1EN;
+	RCC					-> AHB1ENR	|= RCC_AHB1ENR_DMAMUX1EN;
+
+	DMA1_Channel7		-> CCR		&= ~DMA_CCR_EN;
+
+	DMAMUX1_Channel6	-> CCR		&= ~DMAMUX_CxCR_DMAREQ_ID;
+	DMAMUX1_Channel6	-> CCR		|= 0x19UL << DMAMUX_CxCR_DMAREQ_ID_Pos; // USART1_TX
+
+	DMA1_Channel7		-> CPAR		= (uint32_t)&USART1->TDR;
+	DMA1_Channel7		-> CMAR		= (uint32_t)&init;
+	DMA1_Channel7		-> CNDTR	= sizeof(init)-1;						// Size of buffer
+
+	DMA1_Channel7		-> CCR		&= ~DMA_CCR_CIRC;						// Disable cycle mode
+	DMA1_Channel7		-> CCR		&= ~DMA_CCR_PINC;						// Disable increment pointer peripheral
+
+	DMA1_Channel7		-> CCR		&= ~DMA_CCR_PSIZE;						// Size of data peripheral = 8 bit
+	DMA1_Channel7		-> CCR		&= ~DMA_CCR_MSIZE;						// Size of data memory = 8 bit
+
+	DMA1_Channel7		-> CCR		|= DMA_CCR_DIR;							// Read: memory -> peripheral
+	DMA1_Channel7		-> CCR		|= DMA_CCR_MINC;						// Memory increment mode enabled
+	DMA1_Channel7		-> CCR		&= ~DMA_CCR_PINC;
+
+	DMA1				-> IFCR		|= DMA_IFCR_CGIF7;
+	NVIC_EnableIRQ(DMA1_Channel7_IRQn);
+	DMA1_Channel7		-> CCR		|= DMA_CCR_TCIE;						// Transfer complete interrupt enable
+
+	USART1				-> CR3		|= USART_CR3_DMAT;						// Enable DMA for USART1
+}
+
+void WriteStrDMAusart1 (char *str)
+{
+	while(!(USART1->ISR & USART_ISR_TC));
+
+	DMA1_Channel7		-> CCR		&= ~DMA_CCR_EN;
+
+	DMA1_Channel7		-> CMAR		= (uint32_t)str;
+	DMA1_Channel7		-> CNDTR	= strlen(str);
+
+	DMA1_Channel7		-> CCR		|= DMA_CCR_EN;
+
+	USART1				-> ISR		&= ~USART_ISR_TC;
+}
+
+void WriteDataDMAusart1 (uint8_t *data, uint16_t len)
+{
+	while(!(USART1->ISR & USART_ISR_TC));
+
+	DMA1_Channel7		-> CCR		&= ~DMA_CCR_EN;
+
+	DMA1_Channel7		-> CMAR		= (uint32_t)data;
+	DMA1_Channel7		-> CNDTR	= len;
+
+	DMA1_Channel7		-> CCR		|= DMA_CCR_EN;
+
+	USART1				-> ISR		&= ~USART_ISR_TC;
+}
+
+void USART1_IRQHandler (void)
+{
 	if (USART1->ISR & USART_CR1_RXNEIE)
 	{
 		USART1	-> ISR &= ~USART_CR1_RXNEIE;
 	}
 }
 
+void DMA1_CH7_IRQHandler(void)
+{
+	DMA1				-> IFCR		|= DMA_IFCR_CGIF7;
+}
