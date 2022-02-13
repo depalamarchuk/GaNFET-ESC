@@ -34,6 +34,7 @@ void InitOpamp1 (void){
 
 	do
 	{
+		OPAMP1		-> CSR		&= ~OPAMP_CSR_TRIMOFFSETP;
 		OPAMP1		-> CSR		|= (trim << OPAMP_CSR_TRIMOFFSETN_Pos);
 
 		while (!(ticks == 168000))
@@ -53,6 +54,7 @@ void InitOpamp1 (void){
 
 	do
 	{
+		OPAMP1		-> CSR		&= ~OPAMP_CSR_TRIMOFFSETP;
 		OPAMP1		-> CSR		|= (trim << OPAMP_CSR_TRIMOFFSETP_Pos);
 
 		while (!(ticks == 168000))
@@ -72,6 +74,7 @@ void InitOpamp1 (void){
 
 	do
 	{
+		OPAMP1		-> CSR		&= ~OPAMP_CSR_TRIMOFFSETP;
 		OPAMP1		-> CSR		|= (trim << OPAMP_CSR_TRIMOFFSETN_Pos);
 
 		while (!(ticks == 168000))
@@ -91,6 +94,7 @@ void InitOpamp1 (void){
 
 	do
 	{
+		OPAMP1		-> CSR		&= ~OPAMP_CSR_TRIMOFFSETP;
 		OPAMP1		-> CSR		|= (trim << OPAMP_CSR_TRIMOFFSETP_Pos);
 
 		while (!(ticks == 168000))
@@ -143,6 +147,7 @@ void InitOpamp2 (void){
 
 	do
 	{
+		OPAMP2		-> CSR		&= ~OPAMP_CSR_TRIMOFFSETP;
 		OPAMP2		-> CSR		|= (trim << OPAMP_CSR_TRIMOFFSETN_Pos);
 
 		while (!(ticks == 168000))
@@ -162,6 +167,7 @@ void InitOpamp2 (void){
 
 	do
 	{
+		OPAMP2		-> CSR		&= ~OPAMP_CSR_TRIMOFFSETP;
 		OPAMP2		-> CSR		|= (trim << OPAMP_CSR_TRIMOFFSETP_Pos);
 
 		while (!(ticks == 168000))
@@ -181,6 +187,7 @@ void InitOpamp2 (void){
 
 	do
 	{
+		OPAMP2		-> CSR		&= ~OPAMP_CSR_TRIMOFFSETP;
 		OPAMP2		-> CSR		|= (trim << OPAMP_CSR_TRIMOFFSETN_Pos);
 
 		while (!(ticks == 168000))
@@ -200,6 +207,7 @@ void InitOpamp2 (void){
 
 	do
 	{
+		OPAMP2		-> CSR		&= ~OPAMP_CSR_TRIMOFFSETP;
 		OPAMP2		-> CSR		|= (trim << OPAMP_CSR_TRIMOFFSETP_Pos);
 
 		while (!(ticks == 168000))

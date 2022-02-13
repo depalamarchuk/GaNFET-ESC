@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="ACR"/>
+		<item key="selection" value="TIM7"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="ACR"/>
+			<item value="tim7"/>
+			<item value="tim"/>
+			<item value="TIM6_DACUNDER_IRQHandler"/>
+			<item value="tim6"/>
+			<item value="TIM2_IRQHandler"/>
+			<item value="handler"/>
 			<item value="GPIOA"/>
-			<item value="ODR"/>
-			<item value="GPIO_TypeDef"/>
-			<item value="TIM_SR_COMIF"/>
-			<item value="if ("/>
-			<item value="if "/>
-			<item value="if"/>
-			<item value="BSRR"/>
-			<item value="GPIOBEN"/>
-			<item value="RCC_AHBENR_GPIOBEN"/>
+			<item value="MCO"/>
+			<item value="TIM6"/>
+			<item value="TIM2"/>
+			<item value="TIM2_DAC_IRQn"/>
+			<item value="UIF"/>
+			<item value="uie"/>
+			<item value="uie7"/>
+			<item value="uier"/>
 		</list>
 		<list key="replacehistory">
 			<item value="GPIOB"/>

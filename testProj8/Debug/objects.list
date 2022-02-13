@@ -1,6 +1,0 @@
-"CMSIS/src/system_stm32f3xx.o"
-"Code/src/libPWM.o"
-"Code/src/libUART.o"
-"Code/src/main.o"
-"Code/src/sysinit.o"
-"Startup/startup_stm32f302x8.o"

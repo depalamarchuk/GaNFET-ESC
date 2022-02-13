@@ -19,7 +19,6 @@ void ExecuteFmacFunction(void);
 void StopFmacFunction(void);
 void ResetFmac(void);
 void WriteFmacData(uint16_t data);
-void WriteFmacBuffer(uint16_t *data, uint8_t length);
 uint16_t ReadFmacDataY(void);
 void SelectFmacPreloadFmacX1(uint8_t offset, uint8_t len, uint8_t threshold);
 void SelectFmacPreloadFmacX2(uint8_t offset, uint8_t n_param, uint8_t m_param);
@@ -32,4 +31,4 @@ void SelectFmacIir(	uint8_t in_offset, uint8_t in_len, uint8_t in_threshold,
 					uint8_t coeff_offset, uint8_t a_coeff_num, uint8_t b_coeff_num,
 					uint8_t out_offset, uint8_t out_len, uint8_t out_threshold,
 					uint8_t gain);
-void WriteFmacIirCoefficients(uint16_t *iir_coeff_a, uint16_t *iir_coeff_b, uint8_t offset, uint8_t length_a, uint8_t length_b);
+void WriteFmacIirCoefficients(uint16_t *data, uint8_t offset, uint8_t length_a, uint8_t length_b);

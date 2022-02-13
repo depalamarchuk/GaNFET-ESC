@@ -1,0 +1,106 @@
+#include "main.h"
+
+//#if !defined(__SOFT_FP__) && defined(__ARM_FP)
+//  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+//#endif
+
+#define	MCU_CLK		168000000
+#define	SAMPLE_RATE	48000
+#define FREQ1		16000
+#define FREQ2		8000
+#define RES			32
+
+enum SettingsFMAC{
+	COEFF_START_ADDRESS				= 0x00,
+	COEFF_A_LENGTH					= 0x03,
+	COEFF_B_LENGTH					= 0x03,
+	COEFF_GAIN						= 0x02,
+	INPUT_START_ADDRESS				= 0x00,
+	INPUT_LENGTH					= 0x08,
+	INPUT_BUFFER_FULL_THRESHOLD		= 0x00,
+	OUTPUT_START_ADDRESS			= 0x00,
+	OUTPUT_LENGTH					= 0x04,
+	OUTPUT_BUFFER_FULL_THRESHOLD	= 0x00,
+};
+
+//uint16_t coeff[] = {0x06c2,0x0d83,0x06c2,0x8d83,0x2959,0xff57};
+uint16_t coeff[] = {0xff57,0x2959,0x8d83,0x06c2,0x0d83,0x06c2};
+uint16_t input[0x08] = {0, 0, 0, 0, 0, 0, 0, 0};
+uint16_t output[0x04] = {0, 0, 0, 0};
+uint16_t amplitude[RES];
+uint16_t angle[RES];
+uint16_t sin[RES];
+uint8_t i;
+
+int main(void)
+{
+	InitRCC();
+	InitLedGPIO();
+	InitUSART1();
+	InitDMAusart1();
+	InitVrefbuf();
+	InitDAC (MCU_CLK);
+	InitCORDIC();
+	for (i = 0; i = RES; i++)
+	{
+		amplitude[i] = 0xFFF;
+		angle[i] = (0xFFFF*i)/RES;
+	}
+
+	NOP();
+
+	QuickFunctionQ15inQ15out(amplitude, angle, &sin, NULL, RES, 0, SINE, 16);
+
+	InitFmac();
+	WriteFmacIirCoefficients(coeff, COEFF_START_ADDRESS, COEFF_A_LENGTH, COEFF_B_LENGTH);
+	SelectFmacIir(INPUT_START_ADDRESS, INPUT_LENGTH, INPUT_BUFFER_FULL_THRESHOLD,
+					COEFF_START_ADDRESS, COEFF_A_LENGTH, COEFF_B_LENGTH,
+					OUTPUT_START_ADDRESS, OUTPUT_LENGTH, OUTPUT_BUFFER_FULL_THRESHOLD, COEFF_GAIN);
+
+	xTaskCreate(vTaskLED, "LED", 2048, 0 , 1, &TaskLEDHandle);
+	xTaskCreate(vTaskSendUSART, "SendUSART", 2048, 0 , 1, &TaskSendUSARTHandle);
+
+	vTaskStartScheduler();
+
+    while(1)
+    {
+
+    }
+}
+
+void vTaskLED (void *pvParameters){
+	static uint16_t temp;
+
+	while(1)
+	{
+		BlinkLED (GREEN, 100);
+	}
+}
+
+
+void vTaskSendUSART(void *pvParameters){
+
+	//uint16_t sample_period = MCU_CLK/SAMPLE_RATE;
+	uint16_t signal1_period = MCU_CLK/FREQ1;
+	uint16_t signal2_period = MCU_CLK/FREQ2;
+	uint16_t signal1_tick_period = signal1_period/RES;
+	uint16_t signal2_tick_period = signal2_period/RES;
+
+	uint16_t signal1_tick = 0;
+	uint16_t signal2_tick = 0;
+
+	float signal1_f32;
+	uint16_t signal1_q15, fmacResult;
+	static char SignalStr[4], fmacResultStr[4];
+
+	uint16_t i;
+
+	while(1)
+	{
+		writeDAC(sin[i++]);
+
+		if (i==32){i=0;}
+		vTaskDelay(100);
+		ToggleLED(YELLOW);
+	}
+}

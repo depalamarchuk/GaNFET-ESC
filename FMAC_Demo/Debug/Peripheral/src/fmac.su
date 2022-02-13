@@ -1,0 +1,16 @@
+fmac.c:7:6:InitFmac	4	static
+fmac.c:15:6:ConfigFmacX1buff	16	static
+fmac.c:26:6:ConfigFmacX2Buff	16	static
+fmac.c:36:6:ConfigFmacYBuff	16	static
+fmac.c:47:6:ConfigFmacRQP	16	static
+fmac.c:60:6:ExecuteFmacFunction	4	static
+fmac.c:65:6:StopFmacFunction	4	static
+fmac.c:70:6:ResetFmac	4	static
+fmac.c:75:6:WriteFmacData	16	static
+fmac.c:80:9:ReadFmacDataY	4	static
+fmac.c:88:6:SelectFmacPreloadFmacX1	16	static
+fmac.c:99:6:SelectFmacPreloadFmacX2	16	static
+fmac.c:110:6:SelectFmacPreloadFmacY	16	static
+fmac.c:121:6:SelectFmacConvFir	24	static
+fmac.c:137:6:SelectFmacIir	24	static
+fmac.c:153:6:WriteFmacIirCoefficients	24	static

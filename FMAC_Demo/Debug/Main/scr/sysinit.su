@@ -1,0 +1,7 @@
+sysinit.c:7:6:InitRCC	16	static
+sysinit.c:70:6:flashUnlock	4	static
+sysinit.c:75:6:flashLock	4	static
+sysinit.c:79:6:flashAllErase	4	static
+sysinit.c:84:10:flashReadData	16	static
+sysinit.c:89:6:flashWriteData	16	static
+sysinit.c:110:6:NMI_Handler	8	static

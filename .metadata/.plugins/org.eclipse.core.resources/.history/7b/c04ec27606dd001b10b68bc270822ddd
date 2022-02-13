@@ -1,0 +1,304 @@
+/************************************************ Library ************************************************/
+
+#include "sysinit.h"
+
+/********************************************* Used functions ********************************************/
+
+void InitRCC (void){
+	uint8_t ticks = 0;															//(1us = 168 ticks @ 168MHz)
+
+	if (!(RCC -> CIFR & RCC_CIFR_CSSF))
+	{
+		RCC			-> CR			|= RCC_CR_HSEON; 							// Enable HSE
+		while ((!(RCC->CR & RCC_CR_HSERDY)) && (ticks <= 200))					// Ready to start HSE
+		{
+			ticks++;
+		}
+
+		ticks = 0;
+	}
+
+	RCC			-> CR			&= ~RCC_CR_PLLON;
+
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLPEN;							// clear PLLPEN bits
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLP;							// clear PLLP bits
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLQEN;							// clear PLLQEN bits
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLQ;							// clear PLLQ bits
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLREN;							// clear PLLREN bits
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLR;							// clear PLLR bits
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLN;							// clear PLLN bits
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLM;							// clear PLLM bits
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLSRC;               			// clear PLLSRC bits
+
+	if ((!(RCC->CR & RCC_CR_HSERDY)) || (RCC -> CIFR & RCC_CIFR_CSSF))
+	{
+		RCC		-> CICR			|= RCC_CICR_CSSC;								//Clock security system interrupt clear
+		RCC		-> CR			&= ~RCC_CR_HSEON;
+
+		RCC		-> PLLCFGR		|= RCC_PLLCFGR_PLLSRC_HSI; 						// source HSI = 16MHz
+		RCC		-> PLLCFGR		|= (2U - 1U) << RCC_PLLCFGR_PLLM_Pos; 			// PLLM = HSI/2 = 4 MHz
+		RCC		-> PLLCFGR		|= 42U << RCC_PLLCFGR_PLLN_Pos; 				// PLLN = PLLM*42 = 336 MHz
+	}
+	else
+	{
+		RCC		-> CR			|= RCC_CR_CSSON;
+
+		RCC		-> PLLCFGR		|= RCC_PLLCFGR_PLLSRC_HSE; 						// source HSE = 8MHz
+		RCC		-> PLLCFGR		|= (1U - 1U) << RCC_PLLCFGR_PLLM_Pos; 			// PLLM = HSE/1 = 8 MHz
+		RCC		-> PLLCFGR		|= 42U << RCC_PLLCFGR_PLLN_Pos; 				// PLLN = PLLM*42 = 336 MHz
+	}
+
+	RCC			-> CFGR			&= ~RCC_CFGR_HPRE;
+	RCC			-> CFGR			&= ~RCC_CFGR_PPRE1;
+	RCC			-> CFGR			&= ~RCC_CFGR_PPRE2;
+
+	RCC			-> CFGR			|= RCC_CFGR_HPRE_DIV1;							// AHB = SYSCLK/1
+	RCC			-> CFGR			|= RCC_CFGR_PPRE1_DIV1;							// APB1 = HCLK/1
+	RCC			-> CFGR			|= RCC_CFGR_PPRE2_DIV1;							// APB2 = HCLK/1
+
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLR; 							// PLLR = PLLN/2 = 168 MHz
+	RCC			-> PLLCFGR		|= RCC_PLLCFGR_PLLREN;
+
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLQ;
+	RCC			-> PLLCFGR		|= 0x3UL << RCC_PLLCFGR_PLLQ_Pos;				// PLLQ = PLLN/8 = 42 MHz (for FD CAN)
+	RCC			-> PLLCFGR		|= RCC_PLLCFGR_PLLQEN;
+
+	RCC			-> PLLCFGR		&= ~RCC_PLLCFGR_PLLP;
+	RCC			-> PLLCFGR		|= 0x6UL << RCC_PLLCFGR_PLLPDIV_Pos;			// PLLP = PLLN/6 = 56 MHz (for ADC)
+	RCC			-> PLLCFGR		|= RCC_PLLCFGR_PLLPEN;
+
+	RCC			-> CR			|= RCC_CR_PLLON;        	            	  	// enable PLL
+	while(!(RCC->CR & RCC_CR_PLLRDY) && (ticks <= 200))	     					// wait till PLL is ready
+	{
+		ticks++;
+	}
+
+	ticks = 0;
+
+	if (RCC->CR & RCC_CR_PLLRDY)
+	{
+		RCC			-> CFGR			&= ~RCC_CFGR_HPRE;
+		RCC			-> CFGR			|= RCC_CFGR_HPRE_DIV2;						// AHB = SYSCLK/2
+
+		FLASH		-> ACR			|= FLASH_ACR_PRFTEN;
+		FLASH		-> ACR			|= FLASH_ACR_LATENCY_4WS;					// See table 9
+
+		PWR			-> CR1			|= PWR_CR1_VOS_0;							// Ensure range 1
+		PWR			-> CR5			&= ~PWR_CR5_R1MODE;							// Range 1 from normal to boost mode
+
+		RCC			-> CFGR			&= ~RCC_CFGR_SW;                   			// clear SW bits
+		RCC			-> CFGR			|= RCC_CFGR_SW_PLL;               			// select source SYSCLK = PLL
+		while(((RCC->CFGR & RCC_CFGR_SWS) !=  (0x3UL << RCC_CFGR_SWS_Pos)) && (ticks <= 200))	// wait till PLL is used
+		{
+			ticks++;
+		}
+
+		while(ticks <= 200)	//1us delay is still required, sws was separated for debug purposes
+		{
+			ticks++;
+		}
+
+		ticks = 0;
+
+		RCC			-> CFGR			&= ~RCC_CFGR_HPRE;
+		RCC			-> CFGR			|= RCC_CFGR_HPRE_DIV1;						// AHB = SYSCLK/1
+
+	}
+
+	if ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS)
+	{
+		RCC			-> CR			&= ~RCC_CR_PLLON;
+		RCC			-> CFGR			&= ~RCC_CFGR_SW;                   			// clear SW bits
+
+		RCC			-> CFGR			&= ~RCC_CFGR_HPRE;
+		RCC			-> CFGR			|= RCC_CFGR_HPRE_DIV2;						// AHB = SYSCLK/2
+
+		if (RCC -> CR & RCC_CR_HSEON)
+		{
+
+
+			RCC			-> CFGR			|= RCC_CFGR_SW_HSE;						//SYSCLK = PLL = 24MHz
+
+			while(((RCC->CFGR & RCC_CFGR_SWS) != (0x2UL << RCC_CFGR_SWS_Pos)) && (ticks <= 200))	// wait till HSE is used
+			{
+				ticks++;
+			}
+
+			ticks = 0;
+		}
+
+		if ((RCC->CFGR & RCC_CFGR_SWS) != (0x2UL << RCC_CFGR_SWS_Pos))
+		{
+			RCC			-> CFGR			&= ~RCC_CFGR_SW;                   			// clear SW bits
+			RCC			-> CFGR			|= RCC_CFGR_SW_HSI;							//SYSCLK = PLL = 24MHz
+
+			while(((RCC->CFGR & RCC_CFGR_SWS) != (0x1UL << RCC_CFGR_SWS_Pos)) && (ticks <= 200))	// wait till HSI is used
+			{
+				ticks++;
+			}
+
+			if (((RCC->CFGR & RCC_CFGR_SWS) != (0x1UL << RCC_CFGR_SWS_Pos)))
+			{
+				NVIC_SystemReset();	//the only hope remainig
+			}
+		}
+
+		FLASH		-> ACR			|= FLASH_ACR_PRFTEN;
+		FLASH		-> ACR			&= ~FLASH_ACR_LATENCY;						// See table 9
+
+		PWR			-> CR1			&= ~PWR_CR1_VOS;
+		PWR			-> CR1			|= PWR_CR1_VOS_1;							// Ensure range 2
+
+		RCC			-> CFGR			&= ~RCC_CFGR_HPRE;
+		RCC			-> CFGR			|= RCC_CFGR_HPRE_DIV1;						// AHB = SYSCLK/1
+	}
+
+	//waiting for at least 1us
+	while (!(ticks == 200))
+	{
+		ticks++;
+	}
+
+	SystemCoreClockUpdate();													//only after this function DWT, systic related functuons and ITM should be used
+}
+
+void flashUnlock (void){
+	FLASH -> KEYR = INT_FLASH_KEY1;
+	FLASH -> KEYR = INT_FLASH_KEY2;
+}
+
+void flashLock (void){
+	FLASH -> CR |= FLASH_CR_LOCK;
+}
+
+void flashAllErase (void){
+	FLASH -> CR |= FLASH_CR_MER1;
+	FLASH -> CR |= FLASH_CR_STRT;
+}
+
+uint32_t flashReadData (uint32_t address){
+
+	return (*(__IO uint32_t*) address);
+}
+
+void flashWriteData (uint32_t address, uint32_t data)
+{
+	FLASH -> CR |= FLASH_CR_PG;
+
+	while((FLASH -> SR & FLASH_SR_BSY)!=0);
+
+	*(__IO uint16_t*)address = (uint16_t)data;
+
+	while((FLASH -> SR & FLASH_SR_BSY)!=0);
+
+	address+=2;
+	data>>=16;
+
+	*(__IO uint16_t*)address = (uint16_t)data;
+
+	while((FLASH -> SR & FLASH_SR_BSY)!=0);
+
+	FLASH -> CR &= ~FLASH_CR_PG;
+}
+
+void ItmSendValue8 (uint8_t port, uint8_t value)
+{
+	if ((ITM->TCR & ITM_TCR_ITMENA_Msk) && (ITM->TER & (1UL << port)))
+	{
+    	while (ITM->PORT[port].u8 == 0);
+        ITM->PORT[port].u8 = value;
+	}
+}
+
+void ItmSendArray8 (uint8_t port, uint8_t *value, uint32_t len)
+{
+	uint32_t i;
+
+	for(i = 0; i < len; i++)
+	{
+		if ((ITM->TCR & ITM_TCR_ITMENA_Msk) && (ITM->TER & (1UL << port)))
+	    {
+	    	while (ITM->PORT[port].u8 == 0);
+	        ITM->PORT[port].u8 = value[i];
+	    }
+	}
+}
+
+void ItmSendValue16 (uint8_t port, uint16_t value)
+{
+	if ((ITM->TCR & ITM_TCR_ITMENA_Msk) && (ITM->TER & (1UL << port)))
+	{
+    	while (ITM->PORT[port].u32 == 0);
+        ITM->PORT[port].u32 = value;
+	}
+}
+
+void ItmSendArray16 (uint8_t port, uint16_t *value, uint32_t len)
+{
+	uint32_t i;
+
+	for(i = 0; i < len; i++)
+	{
+		if ((ITM->TCR & ITM_TCR_ITMENA_Msk) && (ITM->TER & (1UL << port)))
+	    {
+	    	while (ITM->PORT[port].u16 == 0);
+	        ITM->PORT[port].u16 = value[i];
+	    }
+	}
+}
+
+void ItmSendValue32 (uint8_t port, uint32_t value)
+{
+	if ((ITM->TCR & ITM_TCR_ITMENA_Msk) && (ITM->TER & (1UL << port)))
+	{
+    	while (ITM->PORT[port].u32 == 0);
+        ITM->PORT[port].u32 = value;
+	}
+}
+
+void ItmSendArray32 (uint8_t port, uint32_t *value, uint32_t len)
+{
+	uint32_t i;
+
+	for(i = 0; i < len; i++)
+	{
+		if ((ITM->TCR & ITM_TCR_ITMENA_Msk) && (ITM->TER & (1UL << port)))
+	    {
+	    	while (ITM->PORT[port].u32 == 0);
+	        ITM->PORT[port].u32 = value[i];
+	    }
+	}
+}
+
+void ItmPrint (uint8_t port, const char *p)
+{
+	if ((ITM->TCR & ITM_TCR_ITMENA_Msk) && (ITM->TER & (1UL << port)))
+	{
+		while (*p)
+		{
+			while (ITM->PORT[port].u32 == 0);
+			ITM->PORT[port].u8 = *p++;
+		}
+	}
+}
+
+void DwtInit(void)
+{
+	CoreDebug	-> DEMCR	|= CoreDebug_DEMCR_TRCENA_Msk;
+	DWT			-> CTRL		|= DWT_CTRL_CYCCNTENA_Msk;
+}
+
+void delay_us(uint32_t us)
+{
+	uint32_t us_count_tic	=  us * (SystemCoreClock / 1000000U);
+	DWT			-> CYCCNT	= 0U;
+	while(DWT->CYCCNT < us_count_tic);
+}
+
+void NMI_Handler(void)
+{
+	if (RCC -> CIFR & RCC_CIFR_CSSF)
+	{
+		InitRCC();
+	}
+}

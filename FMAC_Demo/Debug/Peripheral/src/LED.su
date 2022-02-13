@@ -1,0 +1,4 @@
+LED.c:8:6:InitLedGPIO	4	static
+LED.c:35:6:SetLED	16	static
+LED.c:87:6:ToggleLED	16	static
+LED.c:111:6:BlinkLED	16	static

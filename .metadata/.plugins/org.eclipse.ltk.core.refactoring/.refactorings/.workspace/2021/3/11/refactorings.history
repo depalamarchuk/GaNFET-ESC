@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;FMAC_Matrix_Demo2&apos;" deleteContents="false" description="Delete resource &apos;FMAC_Matrix_Demo2&apos;" element1="/FMAC_Matrix_Demo2" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1615229587533"/>&#x0A;<refactoring comment="Delete resource &apos;FMAC_Matrix_Demo&apos;" deleteContents="true" description="Delete resource &apos;FMAC_Matrix_Demo&apos;" element1="/FMAC_Matrix_Demo" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1615235563007"/>
+</session>

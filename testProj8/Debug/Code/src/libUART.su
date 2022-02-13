@@ -1,5 +1,0 @@
-core_cm4.h:1688:22:__NVIC_EnableIRQ	16	static
-libUART.c:7:6:InitUSART	8	static
-libUART.c:43:6:SendUSART2	16	static
-libUART.c:50:6:SendStringUSART2	24	static
-libUART.c:57:6:SendDataUSART2	16	static

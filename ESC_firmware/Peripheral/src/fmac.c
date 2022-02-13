@@ -8,10 +8,10 @@ void InitFmac(void)
 {
 	RCC		-> AHB1ENR		|= RCC_AHB1ENR_FMACEN;
 
-	FMAC	-> CR			|= FMAC_CR_RIEN;
+	//FMAC	-> CR			|= FMAC_CR_RIEN;
 
-	NVIC_EnableIRQ(FMAC_IRQn);
-	NVIC_SetPriority(FMAC_IRQn, 5);
+	//NVIC_EnableIRQ(FMAC_IRQn);
+	//NVIC_SetPriority(FMAC_IRQn, 5);
 }
 
 //threshold is free space 2^FULL_WM watermark
@@ -49,6 +49,10 @@ void ConfigFmacYBuff(uint8_t offset, uint8_t len, uint8_t threshold)
 
 void ConfigFmacRQP (uint8_t r_param, uint8_t q_param, uint8_t p_param)
 {
+	FMAC	-> PARAM		&= ~FMAC_PARAM_R_Msk;
+	FMAC	-> PARAM		&= ~FMAC_PARAM_Q_Msk;
+	FMAC	-> PARAM		&= ~FMAC_PARAM_P_Msk;
+
 	FMAC	-> PARAM		|= (r_param << FMAC_PARAM_R_Pos);
 	FMAC	-> PARAM		|= (q_param << FMAC_PARAM_Q_Pos);
 	FMAC	-> PARAM		|= (p_param << FMAC_PARAM_P_Pos);
@@ -76,16 +80,6 @@ void WriteFmacData(uint16_t data)
 	FMAC	-> WDATA		|= data;
 }
 
-void WriteFmacBuffer(uint16_t *data, uint8_t length)
-{
-	uint8_t i;
-
-	for (i = 0; i < length; i++)
-	{
-		WriteFmacData(data[i]);
-	}
-}
-
 uint16_t ReadFmacDataY(void)
 {
 	return (FMAC -> RDATA);
@@ -99,6 +93,7 @@ void SelectFmacPreloadFmacX1(uint8_t offset, uint8_t len, uint8_t threshold)
 	ConfigFmacX1buff(offset, len, threshold);
 	ConfigFmacRQP (0, 0, len);
 
+	FMAC	-> PARAM		&= ~FMAC_PARAM_FUNC;
 	FMAC	-> PARAM		|= FMAC_PARAM_FUNC_LOAD_X1_BUFFER;
 	ExecuteFmacFunction();
 }
@@ -109,6 +104,7 @@ void SelectFmacPreloadFmacX2(uint8_t offset, uint8_t n_param, uint8_t m_param)
 	ConfigFmacX2Buff(offset, (n_param + m_param));
 	ConfigFmacRQP (0, m_param, n_param);
 
+	FMAC	-> PARAM		&= ~FMAC_PARAM_FUNC;
 	FMAC	-> PARAM		|= FMAC_PARAM_FUNC_LOAD_X2_BUFFER;
 	ExecuteFmacFunction();
 }
@@ -119,6 +115,7 @@ void SelectFmacPreloadFmacY(uint8_t offset, uint8_t len, uint8_t threshold)
 	ConfigFmacYBuff(offset, len, threshold);
 	ConfigFmacRQP (0, 0, len);
 
+	FMAC	-> PARAM		&= ~FMAC_PARAM_FUNC;
 	FMAC	-> PARAM		|= FMAC_PARAM_FUNC_LOAD_Y_BUFFER;
 	ExecuteFmacFunction();
 }
@@ -134,6 +131,7 @@ void SelectFmacConvFir(	uint8_t in_offset, uint8_t in_len, uint8_t in_threshold,
 	ConfigFmacYBuff(out_offset, out_len, out_threshold);
 	ConfigFmacRQP (gain, 0, b_coeff_num);
 
+	FMAC	-> PARAM		&= ~FMAC_PARAM_FUNC;
 	FMAC	-> PARAM		|= FMAC_PARAM_FUNC_CONV_IIR;
 	ExecuteFmacFunction();
 }
@@ -149,29 +147,22 @@ void SelectFmacIir(	uint8_t in_offset, uint8_t in_len, uint8_t in_threshold,
 	ConfigFmacYBuff(out_offset, out_len, out_threshold);
 	ConfigFmacRQP (gain, a_coeff_num, b_coeff_num);
 
+	FMAC	-> PARAM		&= ~FMAC_PARAM_FUNC;
 	FMAC	-> PARAM		|= FMAC_PARAM_FUNC_IIR_FILTER;
 	ExecuteFmacFunction();
 }
-
 /**************************************** Filter functions ***************************************/
 
-void WriteFmacIirCoefficients(uint16_t *iir_coeff_a, uint16_t *iir_coeff_b, uint8_t offset, uint8_t length_a, uint8_t length_b)
+void WriteFmacIirCoefficients(uint16_t *data, uint8_t offset, uint8_t length_a, uint8_t length_b)
 {
-	uint8_t i;
+	uint8_t i = 0;
 
 	SelectFmacPreloadFmacX2(offset, length_a, length_b);
 
-	for (i = 0; i < length_b; i++)
+	while(data[i] && (FMAC -> PARAM & FMAC_PARAM_START))
 	{
-		WriteFmacData(iir_coeff_b[i]);
+		WriteFmacData (data[i++]);
 	}
-
-	for (i = 0; i < length_a; i++)
-	{
-		WriteFmacData(iir_coeff_a[i]);
-	}
-
-	while (FMAC	-> PARAM & FMAC_PARAM_START);
 }
 
 /***************************************** DMA functions ****************************************/

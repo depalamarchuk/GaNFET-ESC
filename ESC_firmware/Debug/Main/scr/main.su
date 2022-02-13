@@ -1,5 +1,0 @@
-main.c:12:5:main	32	static
-main.c:41:6:vTaskLED	16	static
-main.c:49:6:vTaskSendUSART	32	static
-main.c:109:6:ADC1_2_IRQHandler	16	static
-main.c:123:6:FMAC_IRQHandler	8	static

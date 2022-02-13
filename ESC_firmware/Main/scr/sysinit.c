@@ -29,11 +29,11 @@ void InitRCC (void){
 	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLREN;						// clear PLLREN bits
 	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLR;						// clear PLLR bits
 	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLN;						// clear PLLN bits
-	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLM_0;						// clear PLLM bits
+	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLM;						// clear PLLM bits
 	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLSRC;               		// clear PLLSRC bits
 
 	RCC		-> PLLCFGR		|= RCC_PLLCFGR_PLLSRC_HSE; 					// source HSE = 8MHz
-	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLM_0; 					// PLLM = HSE/1 = 8 MHz
+	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLM; 					// PLLM = HSE/1 = 8 MHz
 	RCC		-> PLLCFGR		|= 0x29UL << RCC_PLLCFGR_PLLN_Pos; 			// PLLN = PLLM*42 = 336 MHz
 
 	RCC		-> PLLCFGR		&= ~RCC_PLLCFGR_PLLR; 						// PLLR = PLLN/2 = 168 MHz

@@ -1,3 +1,0 @@
-main.c:7:5:main	8	static
-main.c:23:17:CalculateOCReg	24	static
-main.c:34:6:USART2_IRQHandler	8	static

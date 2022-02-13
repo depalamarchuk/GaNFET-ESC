@@ -1,0 +1,5 @@
+CORDIC.c:7:6:InitCORDIC	4	static
+CORDIC.c:12:6:WriteCORDIC	16	static
+CORDIC.c:17:9:ReadCORDIC	4	static
+CORDIC.c:23:6:QuickFunctionQ15inQ15out	32	static
+CORDIC.c:73:6:QuickFunctionQ31inQ31out	32	static
